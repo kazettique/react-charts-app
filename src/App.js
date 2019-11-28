@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import './App.css';
 // import {Chart} from 'react-google-charts'
 import {Chart} from "react-google-charts";
+import logo from './logo192.png';
 
 function App() {
   // const fakeData = [
@@ -593,6 +594,7 @@ function App() {
   return (
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <i className="devicon-react-original devIcon navbar-brand"/>
         <a className="navbar-brand" href="http://google.com">Time line chart demo with Google Charts</a>
       </nav>
       <p>This is a simple demo about difference types of controlling the range in chart.<br/>
@@ -607,6 +609,9 @@ function App() {
           <li>We chose column chart for monthly view in this demo for good readability in monthly view.</li>
           <li>Also we want to show if we don't have CONTINUOUS DATA(some days don't have CLICKS data), how the chart
             will be like.
+          </li>
+          <li>
+            The color of line or column in chart can be changed later.
           </li>
         </ul>
 
@@ -729,7 +734,7 @@ function App() {
         ]}
       />
     </div>
-  )
+)
 }
 
 export default App;
