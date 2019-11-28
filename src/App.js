@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import './App.css';
 // import {Chart} from 'react-google-charts'
 import {Chart} from "react-google-charts";
-import logo from './logo192.png';
 
 function App() {
   // const fakeData = [
@@ -617,10 +616,10 @@ function App() {
 
       </p>
       <div className="btn-group" role="group" aria-label="Basic example">
-        <button type="button" className="btn btn-danger"
+        <button type="button" className="btn btn-secondary"
                 onClick={() => handleViewMode(timeConstant.MONTHLY)}>Monthly
         </button>
-        <button type="button" className="btn btn-danger"
+        <button type="button" className="btn btn-secondary"
                 onClick={() => handleViewMode(timeConstant.DAILY)}>Daily
         </button>
       </div>
@@ -645,6 +644,7 @@ function App() {
             // },
           },
           legend: {position: 'none'},
+          colors: ['#343A40'],
         }}
         rootProps={{'data-testid': '3'}}
         chartPackages={['corechart', 'controls']}
@@ -702,6 +702,7 @@ function App() {
             // },
           },
           legend: {position: 'none'},
+          colors: ['#343A40'],
         }}
         rootProps={{'data-testid': '3'}}
         chartPackages={['corechart', 'controls']}
@@ -718,6 +719,7 @@ function App() {
                     height: '50%',
                   },
                   hAxis: {baselineColor: 'none'},
+                  colors: ['#343A40'],
                 },
               },
             },
@@ -734,7 +736,7 @@ function App() {
         ]}
       />
     </div>
-)
+  )
 }
 
 export default App;
