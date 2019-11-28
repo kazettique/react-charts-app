@@ -621,9 +621,8 @@ function App() {
       </div>
       <Chart
         className="chart"
-        style={{width: '100%', margin: '0 auto'}}
         width='100%'
-        height='600px'
+        height='400px'
         chartType={viewMode === timeConstant.DAILY ? 'LineChart' : 'ColumnChart'}
         loader={<div>Loading Chart</div>}
         data={MODE[viewMode]}
@@ -679,9 +678,8 @@ function App() {
       </div>
       <Chart
         className="chart"
-        style={{width: '100%', margin: '0 auto'}}
         width='100%'
-        height='600px'
+        height='400px'
         chartType='LineChart'
         loader={<div>Loading Chart</div>}
         data={dailyData}
