@@ -4,6 +4,7 @@ import './App.css';
 // import {Chart} from 'react-google-charts'
 import {Chart} from "react-google-charts";
 
+
 function App() {
   // const fakeData = [
   //   ['Date', 'Clicks(millions)'],
@@ -269,6 +270,19 @@ function App() {
   //   [new Date(1546236000000), 1.71],
   // ]
 
+  // Date.prototype.getWeek = function() {
+  //   let firstDayOfThisYear = new Date(this.getFullYear(), 0, 1);
+  //   return Math.ceil((((this - firstDayOfThisYear) / 86400000) + firstDayOfThisYear.getDay()+1)/7);
+  // };
+
+  // Get week from date
+  const getWeek = (date) => {
+    let firstDayOfThisYear = new Date(date.getFullYear(), 0, 1);
+    return Math.ceil((((date - firstDayOfThisYear) / 86400000) + firstDayOfThisYear.getDay() + 1) / 7);
+  };
+
+  const objToArr = (obj) => Object.values(obj);
+
   // Data from backend
   const rowData = [
     [1514872800000, 2],
@@ -531,19 +545,16 @@ function App() {
     [1545890400000, 1.74],
     [1545976800000, 1.73],
     [1546236000000, 1.71]
-  ]
+  ];
 
-  // Generate data to show on chart
-  // Year view of data
-  let dailyData = [];
-  dailyData.push(['Date', 'Clicks(millions)']);
+  let dailyData = []; // daily data for chart
+  dailyData.push(['Date', 'Clicks(millions)']); // set title of chart
   for (let value of rowData) {
     dailyData.push([new Date(value[0]), value[1]])
   }
 
   // Monthly view of data
   let monthlyData = [
-    ['Month', 'Clicks(millions)'],
     ['Jan', 0],
     ['Feb', 0],
     ['Mar', 0],
@@ -556,38 +567,125 @@ function App() {
     ['Oct', 0],
     ['Nov', 0],
     ['Dec', 0],
-  ];
+  ]; // monthly data for chart
+  monthlyData.unshift(['Month', 'Clicks(millions)']); // set title of chart
   for (let value of rowData) {
     let normalizedDate = new Date(value[0]);
     let dataMonth = normalizedDate.getMonth();
     monthlyData[dataMonth + 1][1] += value[1];
   }
-  // console.log(monthlyData);
+
+  // Weekly view of data
+  let weeklyData = []; // weekly data for chart
+  let preWeeklyData = {};
+  weeklyData.push(['Week', 'Clicks(millions)']);
+
+  // Generate new array 'preWeeklyData' with schema.
+  // Schema: preWeeklyData = { 1: [1, 0], 2: [2, 0], ... }
+  for (let key in rowData) {
+    let oneDayData = {week: getWeek(new Date(rowData[key][0])), value: rowData[key][1]};
+    preWeeklyData[String(oneDayData.week)] = [oneDayData.week, 0];
+  }
+
+  // console.log(preWeeklyData);
+  for (let key in rowData) {
+    let oneDayData = {week: getWeek(new Date(rowData[key][0])), value: rowData[key][1]};
+    preWeeklyData[String(oneDayData.week)][1] += oneDayData.value;
+  }
+  // console.log(preWeeklyData);
+
+  // Convert object to array
+  for (let value of objToArr(preWeeklyData)) weeklyData.push(value);
+  // console.log(weeklyData);
+
+
+  // Constants
+  const timeConstant = {
+    DAILY: 'daily',
+    WEEKLY: 'weekly',
+    MONTHLY: 'monthly',
+  };
+
+  const MODE = {
+    [timeConstant.DAILY]: dailyData,
+    [timeConstant.WEEKLY]: weeklyData,
+    [timeConstant.MONTHLY]: monthlyData,
+  };
+
+  const regionName = {
+    WORLD: 'world',
+    EUROPE: 'europe',
+    WESTERN_EUROPE: 'western europe',
+    ASIA: 'asia',
+    EASTERN_ASIA: 'eastern asia',
+    NORTHERN_AMERICA: 'northern america',
+    AFRICA: 'africa',
+    SOUTHERN_AMERICA: 'southern america'
+  };
+
+  const REGION_CODE = {
+    [regionName.WORLD]: 'world',
+    [regionName.EUROPE]: '150',
+    [regionName.WESTERN_EUROPE]: '155',
+    [regionName.ASIA]: '142',
+    [regionName.EASTERN_ASIA]: '030',
+    [regionName.NORTHERN_AMERICA]: '021',
+    [regionName.AFRICA]: '002',
+    [regionName.SOUTHERN_AMERICA]: '005',
+  };
 
 
   // Initial state
   const [chartRange, setChartRange] = useState([new Date(2018, 0, 1),
     new Date(2018, 11, 31)]);
-  // console.log(chartRange);
-  const timeConstant = {
-    DAILY: 'daily',
-    MONTHLY: 'monthly'
-  };
-  const MODE = {
-    [timeConstant.DAILY]: dailyData,
-    [timeConstant.MONTHLY]: monthlyData
-  };
+  const [region, setRegion] = useState('world');
   const [viewMode, setViewMode] = useState(timeConstant.DAILY);
-  // console.log(viewMode);
+  // console.log(chartRange);
+
+
   // Event handler
   const handleDateRangeChange = (startDate, endDate) => {
     setChartRange([startDate, endDate])
   };
-
   const handleViewMode = (mode) => setViewMode(mode);
+  const handleRegionChange = (region) => setRegion(region);
 
 
-// let hasControl = true;
+  const countryData = [
+    ['State', 'Clicks'],
+    ['United Kingdom', 200],
+    ['France', 300],
+    ['Germany', 500],
+    ['Norway', 350],
+    ['Poland', 500],
+    ['Italy', 450],
+    ['Spain', 250],
+    ['Czech Republic', 20],
+    ['RU', 200],
+    ['China', 1000],
+    ['Japan', 200],
+    ['South Korea', 150],
+    ['TR', 150],
+    ['India', 500],
+    ['Thailand', 300],
+    ['Indonesia', 200],
+    ['SA', 150],
+    ['Algeria', 360],
+    ['Cameroon', 300],
+    ['Egypt', 260],
+    ['Ethiopia', 190],
+    ['Gambia', 130],
+    ['Malawi', 140],
+    ['Morocco', 320],
+    ['Nigeria', 800],
+    ['South Africa', 300],
+    ['United States', 600],
+    ['Canada', 300],
+    ['Brazil', 250],
+    ['Cuba', 400],
+    ['Argentina', 300],
+    ['Taiwan', 2000]
+  ];
 
 
   return (
@@ -603,21 +701,23 @@ function App() {
       <p>
         If we click "Monthly" button it will invoke Monthly Mode. That means showing sum data for each months.<br/>
         The same feature as Daily button.<br/>
-        NOTE:
-        <ul>
-          <li>We chose column chart for monthly view in this demo for good readability in monthly view.</li>
-          <li>Also we want to show if we don't have CONTINUOUS DATA(some days don't have CLICKS data), how the chart
-            will be like.
-          </li>
-          <li>
-            The color of line or column in chart can be changed later.
-          </li>
-        </ul>
-
+        <b>NOTE:</b>
       </p>
+      <ul>
+        <li>We chose column chart for monthly view in this demo for good readability in monthly view.</li>
+        <li>Also we want to show if we don't have CONTINUOUS DATA(some days don't have CLICKS data), how the chart
+          will be like.
+        </li>
+        <li>
+          The color of line or column in chart can be changed later.
+        </li>
+      </ul>
       <div className="btn-group" role="group" aria-label="Basic example">
         <button type="button" className="btn btn-secondary"
                 onClick={() => handleViewMode(timeConstant.MONTHLY)}>Monthly
+        </button>
+        <button type="button" className="btn btn-secondary"
+                onClick={() => handleViewMode(timeConstant.WEEKLY)}>Weekly
         </button>
         <button type="button" className="btn btn-secondary"
                 onClick={() => handleViewMode(timeConstant.DAILY)}>Daily
@@ -657,14 +757,14 @@ function App() {
         result will be shown in chart.<br/>
         If the slider is not necessary, we can still remove it.<br/>
         We just show two ways of controlling the filter.<br/>
-        NOTE:
-        <ul>
-          <li>
-            Month buttons are just primary design, we can change to another design if necessary. (For example:
-            dropdown menu)
-          </li>
-        </ul>
+        <b>NOTE:</b>
       </p>
+      <ul>
+        <li>
+          Month buttons are just primary design, we can change to another design if necessary. (For example:
+          dropdown menu)
+        </li>
+      </ul>
       <div className="btn-group" role="group" aria-label="Basic example">
         <button type="button" className="btn btn-secondary"
                 onClick={() => handleDateRangeChange(new Date(2018, 0, 1), new Date(2018, 0, 31))}>January
@@ -735,6 +835,53 @@ function App() {
           },
         ]}
       />
+      <h3>Heat map with region switcher</h3>
+      <p>
+        Here we demonstrate heat map.
+      </p>
+      <Chart
+        className="mapChart"
+        width={'800px'}
+        height={'600px'}
+        chartType="GeoChart"
+        data={countryData}
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        mapsApiKey="AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY"
+        rootProps={{'data-testid': '1'}}
+        options={{
+          sizeAxis: {minValue: 0, maxValue: 100},
+          region: region,
+          // displayMode: 'markers',
+          // colorAxis: { colors: ['#e7711c', '#4374e0'] }, // orange to blue
+        }}
+      />
+      <div className="btn-group" role="group" aria-label="Basic example">
+        <button type="button" className="btn btn-secondary"
+                onClick={() => handleRegionChange(REGION_CODE[regionName.ASIA])}>Asia
+        </button>
+        <button type="button" className="btn btn-secondary"
+                onClick={() => handleRegionChange(REGION_CODE[regionName.EASTERN_ASIA])}>Eastern Asia
+        </button>
+        <button type="button" className="btn btn-secondary"
+                onClick={() => handleRegionChange(REGION_CODE[regionName.EUROPE])}>Europe
+        </button>
+        <button type="button" className="btn btn-secondary"
+                onClick={() => handleRegionChange(REGION_CODE[regionName.WESTERN_EUROPE])}>Western Europe
+        </button>
+        <button type="button" className="btn btn-secondary"
+                onClick={() => handleRegionChange(REGION_CODE[regionName.AFRICA])}>Africa
+        </button>
+        <button type="button" className="btn btn-secondary"
+                onClick={() => handleRegionChange(REGION_CODE[regionName.NORTHERN_AMERICA])}>Northern America
+        </button>
+        <button type="button" className="btn btn-secondary"
+                onClick={() => handleRegionChange(REGION_CODE[regionName.SOUTHERN_AMERICA])}>Southern America
+        </button>
+        <button type="button" className="btn btn-secondary"
+                onClick={() => handleRegionChange(REGION_CODE[regionName.WORLD])}>World
+        </button>
+      </div>
     </div>
   )
 }
