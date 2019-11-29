@@ -1,287 +1,16 @@
 import React, {useState} from 'react';
-// import logo from './logo.svg';
 import './App.css';
-// import {Chart} from 'react-google-charts'
 import {Chart} from "react-google-charts";
 
-
 function App() {
-  // const fakeData = [
-  //   ['Date', 'Clicks(millions)'],
-  //   [new Date(1514872800000), 2],
-  //   [new Date(1514959200000), 1.98],
-  //   [new Date(1515045600000), 2.01],
-  //   [new Date(1515132000000), 2.01],
-  //   [new Date(1515391200000), 2.02],
-  //   [new Date(1515477600000), 2.03],
-  //   [new Date(1515564000000), 2.03],
-  //   [new Date(1515650400000), 2],
-  //   [new Date(1515736800000), 2.01],
-  //   [new Date(1515996000000), null],
-  //   [new Date(1516082400000), 2.03],
-  //   [new Date(1516168800000), 2.04],
-  //   [new Date(1516255200000), 2.05],
-  //   [new Date(1516341600000), 2.06],
-  //   [new Date(1516600800000), 2.06],
-  //   [new Date(1516687200000), 2.06],
-  //   [new Date(1516773600000), 2.07],
-  //   [new Date(1516860000000), 2.07],
-  //   [new Date(1516946400000), 2.09],
-  //   [new Date(1517205600000), 2.09],
-  //   [new Date(1517292000000), 2.1],
-  //   [new Date(1517378400000), 2.11],
-  //   [new Date(1517464800000), 2.11],
-  //   [new Date(1517551200000), 2.14],
-  //   [new Date(1517810400000), 2.1],
-  //   [new Date(1517896800000), 2.1],
-  //   [new Date(1517983200000), 2.1],
-  //   [new Date(1518069600000), 2.09],
-  //   [new Date(1518156000000), 2.05],
-  //   [new Date(1518415200000), 2.07],
-  //   [new Date(1518501600000), 2.05],
-  //   [new Date(1518588000000), 2.09],
-  //   [new Date(1518674400000), 2.11],
-  //   [new Date(1518760800000), 2.09],
-  //   [new Date(1519020000000), null],
-  //   [new Date(1519106400000), 2.1],
-  //   [new Date(1519192800000), 2.12],
-  //   [new Date(1519279200000), 2.11],
-  //   [new Date(1519365600000), 2.12],
-  //   [new Date(1519624800000), 2.13],
-  //   [new Date(1519711200000), 2.13],
-  //   [new Date(1519797600000), 2.12],
-  //   [new Date(1519884000000), 2.1],
-  //   [new Date(1519970400000), 2.12],
-  //   [new Date(1520229600000), 2.13],
-  //   [new Date(1520316000000), 2.12],
-  //   [new Date(1520402400000), 2.13],
-  //   [new Date(1520488800000), 2.11],
-  //   [new Date(1520575200000), 2.12],
-  //   [new Date(1520830800000), 2.1],
-  //   [new Date(1520917200000), 2.09],
-  //   [new Date(1521003600000), 2.07],
-  //   [new Date(1521090000000), 2.08],
-  //   [new Date(1521176400000), 2.08],
-  //   [new Date(1521435600000), 2.08],
-  //   [new Date(1521522000000), 2.08],
-  //   [new Date(1521608400000), 2.09],
-  //   [new Date(1521694800000), 2.08],
-  //   [new Date(1521781200000), 2.07],
-  //   [new Date(1522040400000), 2.08],
-  //   [new Date(1522126800000), 2.07],
-  //   [new Date(1522213200000), 2.05],
-  //   [new Date(1522299600000), 2.05],
-  //   [new Date(1522386000000), null],
-  //   [new Date(1522645200000), 2.05],
-  //   [new Date(1522731600000), 2.08],
-  //   [new Date(1522818000000), 2.08],
-  //   [new Date(1522904400000), 2.08],
-  //   [new Date(1522990800000), 2.07],
-  //   [new Date(1523250000000), 2.07],
-  //   [new Date(1523336400000), 2.08],
-  //   [new Date(1523422800000), 2.11],
-  //   [new Date(1523509200000), 2.13],
-  //   [new Date(1523595600000), 2.13],
-  //   [new Date(1523854800000), 2.12],
-  //   [new Date(1523941200000), 2.14],
-  //   [new Date(1524027600000), 2.16],
-  //   [new Date(1524114000000), 2.17],
-  //   [new Date(1524200400000), 2.17],
-  //   [new Date(1524459600000), 2.18],
-  //   [new Date(1524546000000), 2.17],
-  //   [new Date(1524632400000), 2.17],
-  //   [new Date(1524718800000), 2.18],
-  //   [new Date(1524805200000), 2.17],
-  //   [new Date(1525064400000), 2.17],
-  //   [new Date(1525150800000), 2.16],
-  //   [new Date(1525237200000), 2.17],
-  //   [new Date(1525323600000), 2.16],
-  //   [new Date(1525410000000), 2.16],
-  //   [new Date(1525669200000), 2.17],
-  //   [new Date(1525755600000), 2.16],
-  //   [new Date(1525842000000), 2.18],
-  //   [new Date(1525928400000), 2.17],
-  //   [new Date(1526014800000), 2.15],
-  //   [new Date(1526274000000), 2.15],
-  //   [new Date(1526360400000), 2.18],
-  //   [new Date(1526446800000), 2.17],
-  //   [new Date(1526533200000), 2.16],
-  //   [new Date(1526619600000), 2.15],
-  //   [new Date(1526878800000), 2.16],
-  //   [new Date(1526965200000), 2.15],
-  //   [new Date(1527051600000), 2.14],
-  //   [new Date(1527138000000), 2.12],
-  //   [new Date(1527224400000), 2.09],
-  //   [new Date(1527483600000), null],
-  //   [new Date(1527570000000), 2.04],
-  //   [new Date(1527656400000), 2.06],
-  //   [new Date(1527742800000), 2.07],
-  //   [new Date(1527829200000), 2.09],
-  //   [new Date(1528088400000), 2.12],
-  //   [new Date(1528174800000), 2.13],
-  //   [new Date(1528261200000), 2.14],
-  //   [new Date(1528347600000), 2.13],
-  //   [new Date(1528434000000), 2.11],
-  //   [new Date(1528693200000), 2.13],
-  //   [new Date(1528779600000), 2.13],
-  //   [new Date(1528866000000), 2.12],
-  //   [new Date(1528952400000), 2.12],
-  //   [new Date(1529038800000), 2.12],
-  //   [new Date(1529298000000), 2.12],
-  //   [new Date(1529384400000), 2.12],
-  //   [new Date(1529470800000), 2.12],
-  //   [new Date(1529557200000), 2.11],
-  //   [new Date(1529643600000), 2.12],
-  //   [new Date(1529902800000), 2.1],
-  //   [new Date(1529989200000), 2.12],
-  //   [new Date(1530075600000), 2.11],
-  //   [new Date(1530162000000), 2.1],
-  //   [new Date(1530248400000), 2.11],
-  //   [new Date(1530507600000), 2.14],
-  //   [new Date(1530594000000), 2.12],
-  //   [new Date(1530680400000), null],
-  //   [new Date(1530766800000), 2.13],
-  //   [new Date(1530853200000), 2.12],
-  //   [new Date(1531112400000), 2.13],
-  //   [new Date(1531198800000), 2.13],
-  //   [new Date(1531285200000), 2.11],
-  //   [new Date(1531371600000), 2.1],
-  //   [new Date(1531458000000), 2.11],
-  //   [new Date(1531717200000), 2.1],
-  //   [new Date(1531803600000), 2.09],
-  //   [new Date(1531890000000), 2.09],
-  //   [new Date(1531976400000), 2.09],
-  //   [new Date(1532062800000), 2.11],
-  //   [new Date(1532322000000), 2.11],
-  //   [new Date(1532408400000), 2.11],
-  //   [new Date(1532494800000), 2.13],
-  //   [new Date(1532581200000), 2.11],
-  //   [new Date(1532667600000), 2.12],
-  //   [new Date(1532926800000), 2.13],
-  //   [new Date(1533013200000), 2.12],
-  //   [new Date(1533099600000), 2.13],
-  //   [new Date(1533186000000), 2.12],
-  //   [new Date(1533272400000), 2.12],
-  //   [new Date(1533531600000), 2.11],
-  //   [new Date(1533618000000), 2.13],
-  //   [new Date(1533704400000), 2.11],
-  //   [new Date(1533790800000), 2.11],
-  //   [new Date(1533877200000), 2.09],
-  //   [new Date(1534136400000), 2.1],
-  //   [new Date(1534222800000), 2.09],
-  //   [new Date(1534309200000), 2.08],
-  //   [new Date(1534395600000), 2.08],
-  //   [new Date(1534482000000), 2.08],
-  //   [new Date(1534741200000), 2.07],
-  //   [new Date(1534827600000), 2.08],
-  //   [new Date(1534914000000), 2.08],
-  //   [new Date(1535000400000), 2.09],
-  //   [new Date(1535086800000), 2.09],
-  //   [new Date(1535346000000), 2.11],
-  //   [new Date(1535432400000), 2.11],
-  //   [new Date(1535518800000), 2.12],
-  //   [new Date(1535605200000), 2.1],
-  //   [new Date(1535691600000), 2.08],
-  //   [new Date(1535950800000), null],
-  //   [new Date(1536037200000), 2.1],
-  //   [new Date(1536123600000), 2.09],
-  //   [new Date(1536210000000), 2.08],
-  //   [new Date(1536296400000), 2.1],
-  //   [new Date(1536555600000), 2.1],
-  //   [new Date(1536642000000), 2.12],
-  //   [new Date(1536728400000), 2.12],
-  //   [new Date(1536814800000), 2.1],
-  //   [new Date(1536901200000), 2.1],
-  //   [new Date(1537160400000), 2.1],
-  //   [new Date(1537246800000), 2.13],
-  //   [new Date(1537333200000), 2.15],
-  //   [new Date(1537419600000), 2.15],
-  //   [new Date(1537506000000), 2.15],
-  //   [new Date(1537765200000), 2.16],
-  //   [new Date(1537851600000), 2.16],
-  //   [new Date(1537938000000), 2.14],
-  //   [new Date(1538024400000), 2.15],
-  //   [new Date(1538110800000), 2.14],
-  //   [new Date(1538370000000), 2.14],
-  //   [new Date(1538456400000), 2.12],
-  //   [new Date(1538542800000), 2.16],
-  //   [new Date(1538629200000), 2.16],
-  //   [new Date(1538715600000), 2.16],
-  //   [new Date(1538974800000), null],
-  //   [new Date(1539061200000), 2.17],
-  //   [new Date(1539147600000), 2.16],
-  //   [new Date(1539234000000), 2.12],
-  //   [new Date(1539320400000), 2.12],
-  //   [new Date(1539579600000), 2.13],
-  //   [new Date(1539666000000), 2.13],
-  //   [new Date(1539752400000), 2.13],
-  //   [new Date(1539838800000), 2.1],
-  //   [new Date(1539925200000), 2.11],
-  //   [new Date(1540184400000), 2.11],
-  //   [new Date(1540270800000), 2.09],
-  //   [new Date(1540357200000), 2.07],
-  //   [new Date(1540443600000), 2.05],
-  //   [new Date(1540530000000), 2.06],
-  //   [new Date(1540789200000), 2.06],
-  //   [new Date(1540875600000), 2.05],
-  //   [new Date(1540962000000), 2.05],
-  //   [new Date(1541048400000), 2.02],
-  //   [new Date(1541134800000), 2.06],
-  //   [new Date(1541397600000), 2.06],
-  //   [new Date(1541484000000), 2.07],
-  //   [new Date(1541570400000), 2.07],
-  //   [new Date(1541656800000), 2.07],
-  //   [new Date(1541743200000), 2.04],
-  //   [new Date(1542002400000), null],
-  //   [new Date(1542088800000), 2.02],
-  //   [new Date(1542175200000), 2],
-  //   [new Date(1542261600000), 2],
-  //   [new Date(1542348000000), 2.02],
-  //   [new Date(1542607200000), 1.99],
-  //   [new Date(1542693600000), 1.97],
-  //   [new Date(1542780000000), 1.97],
-  //   [new Date(1542866400000), null],
-  //   [new Date(1542952800000), 1.96],
-  //   [new Date(1543212000000), 1.96],
-  //   [new Date(1543298400000), 1.91],
-  //   [new Date(1543384800000), 1.94],
-  //   [new Date(1543471200000), 1.98],
-  //   [new Date(1543557600000), 1.97],
-  //   [new Date(1543816800000), 1.96],
-  //   [new Date(1543903200000), 1.94],
-  //   [new Date(1543989600000), null],
-  //   [new Date(1544076000000), 1.9],
-  //   [new Date(1544162400000), 1.89],
-  //   [new Date(1544421600000), 1.86],
-  //   [new Date(1544508000000), 1.83],
-  //   [new Date(1544594400000), 1.83],
-  //   [new Date(1544680800000), 1.83],
-  //   [new Date(1544767200000), 1.82],
-  //   [new Date(1545026400000), 1.81],
-  //   [new Date(1545112800000), 1.81],
-  //   [new Date(1545199200000), 1.8],
-  //   [new Date(1545285600000), 1.76],
-  //   [new Date(1545372000000), 1.77],
-  //   [new Date(1545631200000), 1.75],
-  //   [new Date(1545717600000), null],
-  //   [new Date(1545804000000), 1.77],
-  //   [new Date(1545890400000), 1.74],
-  //   [new Date(1545976800000), 1.73],
-  //   [new Date(1546236000000), 1.71],
-  // ]
 
-  // Date.prototype.getWeek = function() {
-  //   let firstDayOfThisYear = new Date(this.getFullYear(), 0, 1);
-  //   return Math.ceil((((this - firstDayOfThisYear) / 86400000) + firstDayOfThisYear.getDay()+1)/7);
-  // };
-
+  // FUNCTIONS
   // Get week from date
   const getWeek = (date) => {
-    let firstDayOfThisYear = new Date(date.getFullYear(), 0, 1);
+    const firstDayOfThisYear = new Date(date.getFullYear(), 0, 1);
     return Math.ceil((((date - firstDayOfThisYear) / 86400000) + firstDayOfThisYear.getDay() + 1) / 7);
   };
-
-  const objToArr = (obj) => Object.values(obj);
+  // REF: http://zerosixthree.se/snippets/get-week-of-the-year-with-jquery/
 
   // Data from backend
   const rowData = [
@@ -546,111 +275,6 @@ function App() {
     [1545976800000, 1.73],
     [1546236000000, 1.71]
   ];
-
-  let dailyData = []; // daily data for chart
-  dailyData.push(['Date', 'Clicks(millions)']); // set title of chart
-  for (let value of rowData) {
-    dailyData.push([new Date(value[0]), value[1]])
-  }
-
-  // Monthly view of data
-  let monthlyData = [
-    ['Jan', 0],
-    ['Feb', 0],
-    ['Mar', 0],
-    ['Apr', 0],
-    ['May', 0],
-    ['Jun', 0],
-    ['Jul', 0],
-    ['Aug', 0],
-    ['Sep', 0],
-    ['Oct', 0],
-    ['Nov', 0],
-    ['Dec', 0],
-  ]; // monthly data for chart
-  monthlyData.unshift(['Month', 'Clicks(millions)']); // set title of chart
-  for (let value of rowData) {
-    let normalizedDate = new Date(value[0]);
-    let dataMonth = normalizedDate.getMonth();
-    monthlyData[dataMonth + 1][1] += value[1];
-  }
-
-  // Weekly view of data
-  let weeklyData = []; // weekly data for chart
-  let preWeeklyData = {};
-  weeklyData.push(['Week', 'Clicks(millions)']);
-
-  // Generate new array 'preWeeklyData' with schema.
-  // Schema: preWeeklyData = { 1: [1, 0], 2: [2, 0], ... }
-  for (let key in rowData) {
-    let oneDayData = {week: getWeek(new Date(rowData[key][0])), value: rowData[key][1]};
-    preWeeklyData[String(oneDayData.week)] = [oneDayData.week, 0];
-  }
-
-  // console.log(preWeeklyData);
-  for (let key in rowData) {
-    let oneDayData = {week: getWeek(new Date(rowData[key][0])), value: rowData[key][1]};
-    preWeeklyData[String(oneDayData.week)][1] += oneDayData.value;
-  }
-  // console.log(preWeeklyData);
-
-  // Convert object to array
-  for (let value of objToArr(preWeeklyData)) weeklyData.push(value);
-  // console.log(weeklyData);
-
-
-  // Constants
-  const timeConstant = {
-    DAILY: 'daily',
-    WEEKLY: 'weekly',
-    MONTHLY: 'monthly',
-  };
-
-  const MODE = {
-    [timeConstant.DAILY]: dailyData,
-    [timeConstant.WEEKLY]: weeklyData,
-    [timeConstant.MONTHLY]: monthlyData,
-  };
-
-  const regionName = {
-    WORLD: 'world',
-    EUROPE: 'europe',
-    WESTERN_EUROPE: 'western europe',
-    ASIA: 'asia',
-    EASTERN_ASIA: 'eastern asia',
-    NORTHERN_AMERICA: 'northern america',
-    AFRICA: 'africa',
-    SOUTHERN_AMERICA: 'southern america'
-  };
-
-  const REGION_CODE = {
-    [regionName.WORLD]: 'world',
-    [regionName.EUROPE]: '150',
-    [regionName.WESTERN_EUROPE]: '155',
-    [regionName.ASIA]: '142',
-    [regionName.EASTERN_ASIA]: '030',
-    [regionName.NORTHERN_AMERICA]: '021',
-    [regionName.AFRICA]: '002',
-    [regionName.SOUTHERN_AMERICA]: '005',
-  };
-
-
-  // Initial state
-  const [chartRange, setChartRange] = useState([new Date(2018, 0, 1),
-    new Date(2018, 11, 31)]);
-  const [region, setRegion] = useState('world');
-  const [viewMode, setViewMode] = useState(timeConstant.DAILY);
-  // console.log(chartRange);
-
-
-  // Event handler
-  const handleDateRangeChange = (startDate, endDate) => {
-    setChartRange([startDate, endDate])
-  };
-  const handleViewMode = (mode) => setViewMode(mode);
-  const handleRegionChange = (region) => setRegion(region);
-
-
   const countryData = [
     ['State', 'Clicks'],
     ['United Kingdom', 200],
@@ -687,6 +311,102 @@ function App() {
     ['Taiwan', 2000]
   ];
 
+  const dailyData = []; // daily data for chart
+  dailyData.push(['Date', 'Clicks(millions)']); // set title of chart
+  for (const value of rowData) {
+    dailyData.push([new Date(value[0]), value[1]])
+  }
+
+  // PRE-PROCESSING DATA
+  // Process monthly view data
+  const monthlyData = [
+    ['Jan', 0],
+    ['Feb', 0],
+    ['Mar', 0],
+    ['Apr', 0],
+    ['May', 0],
+    ['Jun', 0],
+    ['Jul', 0],
+    ['Aug', 0],
+    ['Sep', 0],
+    ['Oct', 0],
+    ['Nov', 0],
+    ['Dec', 0],
+  ]; // monthly data for chart
+  monthlyData.unshift(['Month', 'Clicks(millions)']); // set title of chart
+  for (const value of rowData) {
+    const normalizedDate = new Date(value[0]);
+    const dataMonth = normalizedDate.getMonth();
+    monthlyData[dataMonth + 1][1] += value[1];
+  }
+
+  // Process weekly view data
+  const weeklyData = []; // weekly data for chart
+  const preWeeklyData = {};
+  weeklyData.push(['Week', 'Clicks(millions)']);
+
+  // Generate new array 'preWeeklyData' with schema.
+  // Schema: preWeeklyData = { 1: [1, 0], 2: [2, 0], ... }
+  for (const key in rowData) {
+    const oneDayData = {week: getWeek(new Date(rowData[key][0])), value: rowData[key][1]};
+    // If object does not have existed key, then create new one
+    if (!preWeeklyData.hasOwnProperty(oneDayData.week))
+      preWeeklyData[String(oneDayData.week)] = [oneDayData.week, 0];
+    else
+      preWeeklyData[String(oneDayData.week)][1] += oneDayData.value;
+  }
+
+  // Convert object to array
+  for (const value of Object.values(preWeeklyData)) weeklyData.push(value);
+
+  // CONSTANTS
+  const timeConstant = {
+    DAILY: 'daily',
+    WEEKLY: 'weekly',
+    MONTHLY: 'monthly',
+  };
+
+  const MODE = {
+    [timeConstant.DAILY]: dailyData,
+    [timeConstant.WEEKLY]: weeklyData,
+    [timeConstant.MONTHLY]: monthlyData,
+  };
+
+  const regionName = {
+    WORLD: 'world',
+    EUROPE: 'europe',
+    WESTERN_EUROPE: 'western europe',
+    ASIA: 'asia',
+    EASTERN_ASIA: 'eastern asia',
+    NORTHERN_AMERICA: 'northern america',
+    AFRICA: 'africa',
+    SOUTHERN_AMERICA: 'southern america'
+  };
+
+  const REGION_CODE = {
+    [regionName.WORLD]: 'world',
+    [regionName.EUROPE]: '150',
+    [regionName.WESTERN_EUROPE]: '155',
+    [regionName.ASIA]: '142',
+    [regionName.EASTERN_ASIA]: '030',
+    [regionName.NORTHERN_AMERICA]: '021',
+    [regionName.AFRICA]: '002',
+    [regionName.SOUTHERN_AMERICA]: '005',
+  };
+
+  // INITIAL STATES
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [chartRange, setChartRange] = useState([new Date(2018, 0, 1),
+    new Date(2018, 11, 31)]);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [region, setRegion] = useState(regionName.WORLD);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [viewMode, setViewMode] = useState(timeConstant.DAILY);
+
+  // EVENT HANDLERS
+  const handleDateRangeChange = (startDate, endDate) => setChartRange([startDate, endDate]);
+  const handleViewMode = (mode) => setViewMode(mode);
+  const handleRegionChange = (region) => setRegion(region);
 
   return (
     <div className="App">
@@ -851,9 +571,8 @@ function App() {
         rootProps={{'data-testid': '1'}}
         options={{
           sizeAxis: {minValue: 0, maxValue: 100},
-          region: region,
-          // displayMode: 'markers',
-          // colorAxis: { colors: ['#e7711c', '#4374e0'] }, // orange to blue
+          region,
+          colorAxis: {colors: ['#b9b9b9', '#2c313a']},
         }}
       />
       <div className="btn-group" role="group" aria-label="Basic example">
