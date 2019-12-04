@@ -650,17 +650,17 @@ function App() {
                   handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
                 }}>Northern America
         </button>
-        <button type="button" className="btn btn-danger"
-                onClick={() => {
-                  handleRegionChange(COUNTRY_CODE[countryName.US]);
-                  handleResolutionChange((RESOLUTION_MODE[resolutionMode.PROVINCES]))
-                }}>US
-        </button>
         <button type="button" className="btn btn-warning"
                 onClick={() => {
                   handleRegionChange(CONTINENT_CODE[continentName.SOUTHERN_AMERICA]);
                   handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
                 }}>Southern America
+        </button>
+        <button type="button" className="btn btn-danger"
+                onClick={() => {
+                  handleRegionChange(COUNTRY_CODE[countryName.US]);
+                  handleResolutionChange((RESOLUTION_MODE[resolutionMode.PROVINCES]))
+                }}>US
         </button>
         <button type="button" className="btn btn-secondary"
                 onClick={() => {
