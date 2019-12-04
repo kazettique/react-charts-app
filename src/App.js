@@ -282,12 +282,12 @@ function App() {
     ['Germany', 500],
     ['Norway', 350],
     ['Poland', 500],
-    ['Italy', 450],
+    ['Italy', 2000],
     ['Spain', 250],
     ['Czech Republic', 20],
     ['RU', 200],
     ['China', 1000],
-    ['Japan', 200],
+    ['Japan', 2000],
     ['South Korea', 150],
     ['TR', 150],
     ['India', 500],
@@ -303,12 +303,20 @@ function App() {
     ['Morocco', 320],
     ['Nigeria', 800],
     ['South Africa', 300],
-    ['United States', 600],
+    ['United States', 2000],
     ['Canada', 300],
     ['Brazil', 250],
     ['Cuba', 400],
     ['Argentina', 300],
-    ['Taiwan', 2000]
+    ['Taiwan', 2000],
+    ['Illinois', 200],
+    ['Indiana', 300],
+    ['US-IA', 20],
+    ['US-RI', 150],
+    ['California', 250],
+    ['Texas', 100],
+    ['US-WA', 500],
+    ['Florida', 350]
   ];
 
   const dailyData = []; // daily data for chart
@@ -372,41 +380,68 @@ function App() {
     [timeConstant.MONTHLY]: monthlyData,
   };
 
-  const regionName = {
+  // Set continent for region
+  const continentName = {
     WORLD: 'world',
     EUROPE: 'europe',
     WESTERN_EUROPE: 'western europe',
     ASIA: 'asia',
     EASTERN_ASIA: 'eastern asia',
     NORTHERN_AMERICA: 'northern america',
+    US: 'US',
     AFRICA: 'africa',
     SOUTHERN_AMERICA: 'southern america'
   };
 
-  const REGION_CODE = {
-    [regionName.WORLD]: 'world',
-    [regionName.EUROPE]: '150',
-    [regionName.WESTERN_EUROPE]: '155',
-    [regionName.ASIA]: '142',
-    [regionName.EASTERN_ASIA]: '030',
-    [regionName.NORTHERN_AMERICA]: '021',
-    [regionName.AFRICA]: '002',
-    [regionName.SOUTHERN_AMERICA]: '005',
+  const CONTINENT_CODE = {
+    [continentName.WORLD]: 'world',
+    [continentName.EUROPE]: '150',
+    [continentName.WESTERN_EUROPE]: '155',
+    [continentName.ASIA]: '142',
+    [continentName.EASTERN_ASIA]: '030',
+    [continentName.NORTHERN_AMERICA]: '021',
+    // [continentName.US]: 'US',
+    [continentName.AFRICA]: '002',
+    [continentName.SOUTHERN_AMERICA]: '005',
   };
+
+  // Set country for region
+  const countryName = {
+    US: 'US',
+  }
+
+  const COUNTRY_CODE = {
+    [countryName.US]: 'US',
+  }
+
+  // Set resolution mode ('countries' or 'provinces')
+  const resolutionMode = {
+    COUNTRIES: 'countries',
+    PROVINCES: 'provinces'
+  }
+
+  const RESOLUTION_MODE = {
+    [resolutionMode.COUNTRIES]: 'countries',
+    [resolutionMode.PROVINCES]: 'provinces'
+  }
+
 
   // INITIAL STATES
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [chartRange, setChartRange] = useState([new Date(2018, 0, 1),
     new Date(2018, 11, 31)]);
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [region, setRegion] = useState(regionName.WORLD);
+  const [region, setRegion] = useState(continentName.WORLD);
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [viewMode, setViewMode] = useState(timeConstant.DAILY);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [resolution, setResolution] = useState(resolutionMode.COUNTRIES);
 
   // EVENT HANDLERS
   const handleDateRangeChange = (startDate, endDate) => setChartRange([startDate, endDate]);
   const handleViewMode = (mode) => setViewMode(mode);
   const handleRegionChange = (region) => setRegion(region);
+  const handleResolutionChange = (resolution) => setResolution(resolution);
 
   return (
     <div className="App">
@@ -572,33 +607,66 @@ function App() {
         options={{
           sizeAxis: {minValue: 0, maxValue: 100},
           region,
-          colorAxis: {colors: ['#b9b9b9', '#2c313a']},
+          // colorAxis: {colors: ['#b9b9b9', '#2c313a']},
+          colorAxis: {colors: ['#E2EAFF', '#4274EF']},
+          resolution,
+          datalessRegionColor: '#FCFCFC',
         }}
       />
       <div className="btn-group" role="group" aria-label="Basic example">
-        <button type="button" className="btn btn-secondary"
-                onClick={() => handleRegionChange(REGION_CODE[regionName.ASIA])}>Asia
+        <button type="button" className="btn btn-success"
+                onClick={() => {
+                  handleRegionChange(CONTINENT_CODE[continentName.ASIA]);
+                  handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                }}>Asia
+        </button>
+        <button type="button" className="btn btn-warning"
+                onClick={() => {
+                  handleRegionChange(CONTINENT_CODE[continentName.EASTERN_ASIA]);
+                  handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                }}>Eastern Asia
+        </button>
+        <button type="button" className="btn btn-success"
+                onClick={() => {
+                  handleRegionChange(CONTINENT_CODE[continentName.EUROPE]);
+                  handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                }}>Europe
+        </button>
+        <button type="button" className="btn btn-warning"
+                onClick={() => {
+                  handleRegionChange(CONTINENT_CODE[continentName.WESTERN_EUROPE]);
+                  handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                }}>Western Europe
+        </button>
+        <button type="button" className="btn btn-success"
+                onClick={() => {
+                  handleRegionChange(CONTINENT_CODE[continentName.AFRICA]);
+                  handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                }}>Africa
+        </button>
+        <button type="button" className="btn btn-warning"
+                onClick={() => {
+                  handleRegionChange(CONTINENT_CODE[continentName.NORTHERN_AMERICA]);
+                  handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                }}>Northern America
+        </button>
+        <button type="button" className="btn btn-danger"
+                onClick={() => {
+                  handleRegionChange(COUNTRY_CODE[countryName.US]);
+                  handleResolutionChange((RESOLUTION_MODE[resolutionMode.PROVINCES]))
+                }}>US
+        </button>
+        <button type="button" className="btn btn-warning"
+                onClick={() => {
+                  handleRegionChange(CONTINENT_CODE[continentName.SOUTHERN_AMERICA]);
+                  handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                }}>Southern America
         </button>
         <button type="button" className="btn btn-secondary"
-                onClick={() => handleRegionChange(REGION_CODE[regionName.EASTERN_ASIA])}>Eastern Asia
-        </button>
-        <button type="button" className="btn btn-secondary"
-                onClick={() => handleRegionChange(REGION_CODE[regionName.EUROPE])}>Europe
-        </button>
-        <button type="button" className="btn btn-secondary"
-                onClick={() => handleRegionChange(REGION_CODE[regionName.WESTERN_EUROPE])}>Western Europe
-        </button>
-        <button type="button" className="btn btn-secondary"
-                onClick={() => handleRegionChange(REGION_CODE[regionName.AFRICA])}>Africa
-        </button>
-        <button type="button" className="btn btn-secondary"
-                onClick={() => handleRegionChange(REGION_CODE[regionName.NORTHERN_AMERICA])}>Northern America
-        </button>
-        <button type="button" className="btn btn-secondary"
-                onClick={() => handleRegionChange(REGION_CODE[regionName.SOUTHERN_AMERICA])}>Southern America
-        </button>
-        <button type="button" className="btn btn-secondary"
-                onClick={() => handleRegionChange(REGION_CODE[regionName.WORLD])}>World
+                onClick={() => {
+                  handleRegionChange(CONTINENT_CODE[continentName.WORLD]);
+                  handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                }}>World
         </button>
       </div>
     </div>
