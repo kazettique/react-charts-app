@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/react-charts-app/static/css/main.c47302e3.chunk.css",
-    "main.js": "/react-charts-app/static/js/main.d7a71140.chunk.js",
-    "main.js.map": "/react-charts-app/static/js/main.d7a71140.chunk.js.map",
+    "main.js": "/react-charts-app/static/js/main.7d5d56f7.chunk.js",
+    "main.js.map": "/react-charts-app/static/js/main.7d5d56f7.chunk.js.map",
     "runtime-main.js": "/react-charts-app/static/js/runtime-main.0f936282.js",
     "runtime-main.js.map": "/react-charts-app/static/js/runtime-main.0f936282.js.map",
     "static/js/2.a6c2a527.chunk.js": "/react-charts-app/static/js/2.a6c2a527.chunk.js",
     "static/js/2.a6c2a527.chunk.js.map": "/react-charts-app/static/js/2.a6c2a527.chunk.js.map",
     "index.html": "/react-charts-app/index.html",
-    "precache-manifest.f27442eb4f1e71f6dc9a71002b8340ee.js": "/react-charts-app/precache-manifest.f27442eb4f1e71f6dc9a71002b8340ee.js",
+    "precache-manifest.a55c7274268e099928e984ec953c894c.js": "/react-charts-app/precache-manifest.a55c7274268e099928e984ec953c894c.js",
     "service-worker.js": "/react-charts-app/service-worker.js",
     "static/css/main.c47302e3.chunk.css.map": "/react-charts-app/static/css/main.c47302e3.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.0f936282.js",
     "static/js/2.a6c2a527.chunk.js",
     "static/css/main.c47302e3.chunk.css",
-    "static/js/main.d7a71140.chunk.js"
+    "static/js/main.7d5d56f7.chunk.js"
   ]
 }
