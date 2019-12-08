@@ -816,12 +816,17 @@ function App() {
             // REF: https://stackoverflow.com/questions/37176219/how-to-change-google-chart-title-font-size
             titleTextStyle: {
               color: '#2c313a',
-              fontName: 'OpenSans',
+              fontName: 'Open Sans',
               fontSize: 36, // 12, 18 whatever you want (don't specify px)
               bold: true,
               italic: false,
             },
-            legend: {position: 'bottom', maxLines: 3, textStyle: {color: '#9b9b9b', fontSize: 12}},
+            legend: {
+              position: 'bottom',
+              maxLines: 3,
+              textStyle: {color: '#9b9b9b', fontSize: 12},
+              fontName: 'Open Sans'
+            },
             bar: {groupWidth: '75%'},
             isStacked: true,
             focusTarget: 'category',
@@ -835,12 +840,12 @@ function App() {
               baselineColor: '#d8d8d8',
               format: 'short',
               title: '',
-              textStyle: {color: '#2c313a', fontSize: 16},
+              textStyle: {color: '#2c313a', fontSize: 16, fontName: 'Open Sans'},
             },
             vAxis: {
               format: 'short',
               title: '',
-              textStyle: {color: '#2c313a', fontSize: 16},
+              textStyle: {color: '#2c313a', fontSize: 16, fontName: 'Open Sans'},
             },
             animation: {
               duration: '0.5s',
