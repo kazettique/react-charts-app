@@ -1,15 +1,14 @@
-import React, {useState} from 'react';
-import './App.css';
-import {Chart} from "react-google-charts";
+import React, { useState } from 'react'
+import './App.css'
+import { Chart } from 'react-google-charts'
 
 function App() {
-
   // FUNCTIONS
   // Get week from date
   const getWeek = (date) => {
-    const firstDayOfThisYear = new Date(date.getFullYear(), 0, 1);
-    return Math.ceil((((date - firstDayOfThisYear) / 86400000) + firstDayOfThisYear.getDay() + 1) / 7);
-  };
+    const firstDayOfThisYear = new Date(date.getFullYear(), 0, 1)
+    return Math.ceil((((date - firstDayOfThisYear) / 86400000) + firstDayOfThisYear.getDay() + 1) / 7)
+  }
   // REF: http://zerosixthree.se/snippets/get-week-of-the-year-with-jquery/
 
   // Data from backend
@@ -273,8 +272,8 @@ function App() {
     [1545804000000, 1.77],
     [1545890400000, 1.74],
     [1545976800000, 1.73],
-    [1546236000000, 1.71]
-  ];
+    [1546236000000, 1.71],
+  ]
   const countryData = [
     ['State', 'Clicks'],
     ['United Kingdom', 200],
@@ -287,7 +286,7 @@ function App() {
     ['Czech Republic', 20],
     // with country code and country name both shown
     // REF: https://stackoverflow.com/questions/40747090/color-provinces-in-my-country-with-google-charts-geocharts
-    [{v: 'RU', f: 'Russia'}, 200],
+    [{ v: 'RU', f: 'Russia' }, 200],
     ['China', 1000],
     ['Japan', 2000],
     ['South Korea', 150],
@@ -356,70 +355,79 @@ function App() {
     // use prefecture name in Mandarin
     ['新疆维吾尔自治区', 400],
     ['西藏自治区', 450],
-    ['内蒙古自治区', 400]
-  ];
-  // TODO data
+    ['内蒙古自治区', 400],
+  ]
+  const newRowData = []
+  for (const value of rowData) newRowData.push([value[0], value[1], value[1] == null ? null : value[1] * 1.2, value[1] == null ? null : value[1] * 0.8])
 
-  const dailyData = []; // daily data for chart
-  dailyData.push(['Date', 'Clicks(millions)']); // set title of chart
-  for (const value of rowData) {
-    dailyData.push([new Date(value[0]), value[1]])
-  }
+  const dailyData = [] // daily data for chart
+  dailyData.push(['Date', 'Impressions', 'Reach', 'Clicks']) // set title of chart
+  for (const value of newRowData) dailyData.push([new Date(value[0]), value[1], value[2], value[3]])
 
   // PRE-PROCESSING DATA
   // Process monthly view data
   const monthlyData = [
-    ['Jan', 0],
-    ['Feb', 0],
-    ['Mar', 0],
-    ['Apr', 0],
-    ['May', 0],
-    ['Jun', 0],
-    ['Jul', 0],
-    ['Aug', 0],
-    ['Sep', 0],
-    ['Oct', 0],
-    ['Nov', 0],
-    ['Dec', 0],
-  ]; // monthly data for chart
-  monthlyData.unshift(['Month', 'Clicks(millions)']); // set title of chart
-  for (const value of rowData) {
-    const normalizedDate = new Date(value[0]);
-    const dataMonth = normalizedDate.getMonth();
-    monthlyData[dataMonth + 1][1] += value[1];
+    ['Jan', 0, 0, 0],
+    ['Feb', 0, 0, 0],
+    ['Mar', 0, 0, 0],
+    ['Apr', 0, 0, 0],
+    ['May', 0, 0, 0],
+    ['Jun', 0, 0, 0],
+    ['Jul', 0, 0, 0],
+    ['Aug', 0, 0, 0],
+    ['Sep', 0, 0, 0],
+    ['Oct', 0, 0, 0],
+    ['Nov', 0, 0, 0],
+    ['Dec', 0, 0, 0],
+  ] // monthly data for chart
+  monthlyData.unshift(['Month', 'Impressions', 'Reach', 'Clicks']) // set title of chart
+  for (const value of newRowData) {
+    const normalizedDate = new Date(value[0])
+    const dataMonth = normalizedDate.getMonth()
+    monthlyData[dataMonth + 1][1] += value[1]
+    monthlyData[dataMonth + 1][2] += value[2]
+    monthlyData[dataMonth + 1][3] += value[3]
   }
 
   // Process weekly view data
-  const weeklyData = []; // weekly data for chart
-  const preWeeklyData = {};
-  weeklyData.push(['Week', 'Clicks(millions)']);
+  const weeklyData = [] // weekly data for chart
+  const preWeeklyData = {}
+  weeklyData.push(['Week', 'Impressions', 'Reach', 'Clicks'])
 
   // Generate new array 'preWeeklyData' with schema.
   // Schema: preWeeklyData = { 1: [1, 0], 2: [2, 0], ... }
-  for (const key in rowData) {
-    const oneDayData = {week: getWeek(new Date(rowData[key][0])), value: rowData[key][1]};
+  for (const key in newRowData) {
+    const oneDayData = {
+      week: getWeek(new Date(newRowData[key][0])),
+      value1: newRowData[key][1],
+      value2: newRowData[key][2],
+      value3: newRowData[key][3],
+    }
     // If object does not have existed key, then create new one
     if (!preWeeklyData.hasOwnProperty(oneDayData.week))
-      preWeeklyData[String(oneDayData.week)] = [oneDayData.week, 0];
-    else
-      preWeeklyData[String(oneDayData.week)][1] += oneDayData.value;
+      preWeeklyData[String(oneDayData.week)] = [oneDayData.week, 0, 0, 0]
+    else {
+      preWeeklyData[String(oneDayData.week)][1] += oneDayData.value1
+      preWeeklyData[String(oneDayData.week)][2] += oneDayData.value2
+      preWeeklyData[String(oneDayData.week)][3] += oneDayData.value3
+    }
   }
 
   // Convert object to array
-  for (const value of Object.values(preWeeklyData)) weeklyData.push(value);
+  for (const value of Object.values(preWeeklyData)) weeklyData.push(value)
 
   // CONSTANTS
   const timeConstant = {
     DAILY: 'daily',
     WEEKLY: 'weekly',
     MONTHLY: 'monthly',
-  };
+  }
 
   const MODE = {
     [timeConstant.DAILY]: dailyData,
     [timeConstant.WEEKLY]: weeklyData,
     [timeConstant.MONTHLY]: monthlyData,
-  };
+  }
 
   // Set continent for region
   const continentName = {
@@ -431,8 +439,8 @@ function App() {
     NORTHERN_AMERICA: 'northern america',
     US: 'US',
     AFRICA: 'africa',
-    SOUTHERN_AMERICA: 'southern america'
-  };
+    SOUTHERN_AMERICA: 'southern america',
+  }
 
   const CONTINENT_CODE = {
     [continentName.WORLD]: 'world',
@@ -444,51 +452,52 @@ function App() {
     // [continentName.US]: 'US',
     [continentName.AFRICA]: '002',
     [continentName.SOUTHERN_AMERICA]: '005',
-  };
+  }
 
   // Set country for region
   const countryName = {
     US: 'US',
-  };
+  }
 
   const COUNTRY_CODE = {
     [countryName.US]: 'US',
-  };
+  }
 
   // Set resolution mode ('countries' or 'provinces')
   const resolutionMode = {
     COUNTRIES: 'countries',
-    PROVINCES: 'provinces'
-  };
+    PROVINCES: 'provinces',
+  }
 
   const RESOLUTION_MODE = {
     [resolutionMode.COUNTRIES]: 'countries',
-    [resolutionMode.PROVINCES]: 'provinces'
-  };
-
+    [resolutionMode.PROVINCES]: 'provinces',
+  }
 
   // INITIAL STATES
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [chartRange, setChartRange] = useState([new Date(2018, 0, 1),
-    new Date(2018, 11, 31)]);
+  const [region, setRegion] = useState(continentName.WORLD)
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [region, setRegion] = useState(continentName.WORLD);
+  const [viewMode, setViewMode] = useState(timeConstant.DAILY)
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [viewMode, setViewMode] = useState(timeConstant.DAILY);
+  const [resolution, setResolution] = useState(resolutionMode.COUNTRIES)
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [resolution, setResolution] = useState(resolutionMode.COUNTRIES);
+  const [is3dMode, set3dMode] = useState(false)
 
   // EVENT HANDLERS
   // const handleDateRangeChange = (startDate, endDate) => setChartRange([startDate, endDate]);
-  const handleViewMode = (mode) => setViewMode(mode);
-  const handleRegionChange = (region) => setRegion(region);
-  const handleResolutionChange = (resolution) => setResolution(resolution);
+  const handleViewMode = (mode) => setViewMode(mode)
+  const handleRegionChange = (region) => setRegion(region)
+  const handleResolutionChange = (resolution) => setResolution(resolution)
+  const handle3dModeChange = (is3dMode) => set3dMode(is3dMode)
 
   return (
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <i className="devicon-react-original devIcon navbar-brand"/>
-        <a className="navbar-brand" href="http://google.com">🤡 Welcome to Google Charts Playground! 👻</a>
+        <a className="navbar-brand" href="http://google.com"><span role="img" aria-label="">🤡</span> Welcome to Google
+          Charts
+          Playground! <span role="img" aria-label="">👻</span></a>
       </nav>
       <div className="btn-group-vertical jumpBtn">
         <a href="#time" className="btn btn-secondary">Time</a>
@@ -502,169 +511,54 @@ function App() {
         <a href="#combo" className="btn btn-secondary">Combo</a>
         <a href="#pie" className="btn btn-secondary">Pie</a>
       </div>
-      {/*<p>This is a simple demo about difference types of controlling the range in chart.<br/>*/}
-      {/*  This data contains some random data from <b>Jan 1st, 2018 to Dec 31th, 2018.</b><br/>*/}
-      {/*</p>*/}
       <h3 id="time">Daily and monthly view switcher</h3>
-      {/*<p>*/}
-      {/*  If we click "Monthly" button it will invoke Monthly Mode. That means showing sum data for each months.<br/>*/}
-      {/*  The same feature as Daily button.<br/>*/}
-      {/*  <b>NOTE:</b>*/}
-      {/*</p>*/}
-      {/*<ul>*/}
-      {/*  <li>We chose column chart for monthly view in this demo for good readability in monthly view.</li>*/}
-      {/*  <li>Also we want to show if we don't have CONTINUOUS DATA(some days don't have CLICKS data), how the chart*/}
-      {/*    will be like.*/}
-      {/*  </li>*/}
-      {/*  <li>*/}
-      {/*    The color of line or column in chart can be changed later.*/}
-      {/*  </li>*/}
-      {/*</ul>*/}
-      <div style={{border: '1px solid #b9b9b9', padding: '5px'}}>
+      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
         <div className="btn-group" role="group" aria-label="Basic example">
           <button type="button" className="btn btn-secondary"
-                  onClick={() => handleViewMode(timeConstant.MONTHLY)}>Monthly
+                  onClick={() => handleViewMode(timeConstant.MONTHLY)}>Month
           </button>
           <button type="button" className="btn btn-secondary"
-                  onClick={() => handleViewMode(timeConstant.WEEKLY)}>Weekly
+                  onClick={() => handleViewMode(timeConstant.WEEKLY)}>Week
           </button>
           <button type="button" className="btn btn-secondary"
-                  onClick={() => handleViewMode(timeConstant.DAILY)}>Daily
+                  onClick={() => handleViewMode(timeConstant.DAILY)}>Day
           </button>
         </div>
         <Chart
           className="chart"
           width='100%'
           height='400px'
-          chartType={viewMode === timeConstant.DAILY ? 'LineChart' : 'ColumnChart'}
+          chartType={viewMode === timeConstant.DAILY ? 'LineChart' : 'LineChart'}
           loader={<div style={{
-            width: '100%',
-            height: '400px',
+            alignItems: 'center',
             background: '#cccccc',
             display: 'flex',
+            height: '400px',
             justifyContent: 'center',
-            alignItems: 'center',
+            width: '100%',
           }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
           data={MODE[viewMode]}
           options={{
             // Use the same chart area width as the control for axis alignment.
             chartArea: {
-              height: '80%',
-              width: '90%',
+              height: '75%',
+              width: '80%',
             },
-            hAxis: {slantedText: false},
-            vAxis: {
-              // viewWindow: {
-              //   min: 1,
-              //   max: 3,
-              // },
-            },
-            legend: {position: 'none'},
-            colors: ['#343A40'],
+            colors: ['#51a4f8', '#f7cc6d', '#76d7d7'],
+            hAxis: { slantedText: false },
+            legend: { position: 'bottom' },
+            pointSize: 4,
+            vAxis: {},
           }}
-          rootProps={{'data-testid': '3'}}
+          rootProps={{ 'data-testid': '3' }}
           chartPackages={['corechart', 'controls']}
         />
       </div>
-      {/* region */}
-      {/*<h3>Month Selector & Filter Slider</h3>*/}
-      {/*<p>*/}
-      {/*  We can look a specific month by clicking the month buttons.<br/>*/}
-      {/*  Click "All Year" button will show whole year(2018 in this case) data.*/}
-      {/*  Also we can drag and move the slider at the bottom to change the range we want.<br/>*/}
-      {/*  result will be shown in chart.<br/>*/}
-      {/*  If the slider is not necessary, we can still remove it.<br/>*/}
-      {/*  We just show two ways of controlling the filter.<br/>*/}
-      {/*  <b>NOTE:</b>*/}
-      {/*</p>*/}
-      {/*<ul>*/}
-      {/*  <li>*/}
-      {/*    Month buttons are just primary design, we can change to another design if necessary. (For example:*/}
-      {/*    dropdown menu)*/}
-      {/*  </li>*/}
-      {/*</ul>*/}
-      {/*<div className="btn-group" role="group" aria-label="Basic example">*/}
-      {/*  <button type="button" className="btn btn-secondary"*/}
-      {/*          onClick={() => handleDateRangeChange(new Date(2018, 0, 1), new Date(2018, 0, 31))}>January*/}
-      {/*  </button>*/}
-      {/*  <button type="button" className="btn btn-secondary"*/}
-      {/*          onClick={() => handleDateRangeChange(new Date(2018, 1, 1), new Date(2018, 1, 28))}>February*/}
-      {/*  </button>*/}
-      {/*  <button type="button" className="btn btn-secondary"*/}
-      {/*          onClick={() => handleDateRangeChange(new Date(2018, 2, 1), new Date(2018, 2, 31))}>March*/}
-      {/*  </button>*/}
-      {/*  <button type="button" className="btn btn-secondary" disabled>...</button>*/}
-      {/*  <button type="button" className="btn btn-secondary" onClick={() => {*/}
-      {/*    handleDateRangeChange(new Date(2018, 0, 1), new Date(2018, 11, 31))*/}
-      {/*  }}>ALL Year*/}
-      {/*  </button>*/}
-      {/*</div>*/}
-      {/*<Chart*/}
-      {/*  className="chart"*/}
-      {/*  width='100%'*/}
-      {/*  height='400px'*/}
-      {/*  chartType='LineChart'*/}
-      {/*  // style={{paddingBottom: '150px'}}*/}
-      {/*  loader={<div style={{*/}
-      {/*    width: '100%', height: '400px', background: '#cccccc', display: 'flex',*/}
-      {/*    justifyContent: 'center',*/}
-      {/*    alignItems: 'center',*/}
-      {/*  }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}*/}
-      {/*  data={dailyData}*/}
-      {/*  options={{*/}
-      {/*    // Use the same chart area width as the control for axis alignment.*/}
-      {/*    chartArea: {*/}
-      {/*      height: '80%',*/}
-      {/*      width: '90%',*/}
-      {/*    },*/}
-      {/*    hAxis: {slantedText: false},*/}
-      {/*    vAxis: {*/}
-      {/*      // viewWindow: {*/}
-      {/*      //   min: 1,*/}
-      {/*      //   max: 3,*/}
-      {/*      // },*/}
-      {/*    },*/}
-      {/*    legend: {position: 'none'},*/}
-      {/*    colors: ['#343A40'],*/}
-      {/*  }}*/}
-      {/*  rootProps={{'data-testid': '3'}}*/}
-      {/*  chartPackages={['corechart', 'controls']}*/}
-      {/*  controls={[*/}
-      {/*    {*/}
-      {/*      controlType: 'ChartRangeFilter',*/}
-      {/*      options: {*/}
-      {/*        filterColumnIndex: 0,*/}
-      {/*        ui: {*/}
-      {/*          chartType: 'LineChart',*/}
-      {/*          chartOptions: {*/}
-      {/*            chartArea: {*/}
-      {/*              width: '90%',*/}
-      {/*              height: '50%',*/}
-      {/*            },*/}
-      {/*            hAxis: {baselineColor: 'none'},*/}
-      {/*            colors: ['#343A40'],*/}
-      {/*          },*/}
-      {/*        },*/}
-      {/*      },*/}
-      {/*      controlPosition: 'bottom',*/}
-      {/*      controlWrapperParams: {*/}
-      {/*        state: {*/}
-      {/*          range: {*/}
-      {/*            start: chartRange[0],*/}
-      {/*            end: chartRange[1],*/}
-      {/*          },*/}
-      {/*        },*/}
-      {/*      },*/}
-      {/*    },*/}
-      {/*  ]}*/}
-      {/*/>*/}
-      {/*<div style={{width: '100%', height: '300px'}}/>*/}
-      {/* endregion */}
       <h3 id="heatmap">Heat map with region switcher</h3>
       {/*<p>*/}
       {/*  Here we demonstrate heat map.*/}
       {/*</p>*/}
-      <div style={{border: '1px solid #b9b9b9', padding: '5px'}}>
+      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
         <Chart
           className="mapChart"
           width={'100%'}
@@ -672,21 +566,24 @@ function App() {
           chartType="GeoChart"
           data={countryData}
           loader={<div style={{
-            width: '100%', height: '500px', background: '#cccccc', display: 'flex',
-            justifyContent: 'center',
             alignItems: 'center',
+            background: '#cccccc',
+            display: 'flex',
+            height: '500px',
+            justifyContent: 'center',
+            width: '100%',
           }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
           // Note: you will need to get a mapsApiKey for your project.
           // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
           mapsApiKey="AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY"
-          rootProps={{'data-testid': '1'}}
+          rootProps={{ 'data-testid': '1' }}
           options={{
-            sizeAxis: {minValue: 0, maxValue: 100},
-            region,
-            colorAxis: {colors: ['#D1E8FF', '#248EFA']},
-            resolution,
+            colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
             datalessRegionColor: '#FCFCFC',
-            legend: {position: 'absolute', top: '0', color: 'green'},
+            legend: { position: 'absolute', top: '0', color: 'green' },
+            region,
+            resolution,
+            sizeAxis: { minValue: 0, maxValue: 100 },
           }}
         />
 
@@ -694,50 +591,56 @@ function App() {
         <div className="btn-group" role="group" aria-label="Basic example">
           <button type="button" className="btn btn-success"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.ASIA]);
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                    handleRegionChange(CONTINENT_CODE[continentName.ASIA])
+                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Asia
           </button>
           <button type="button" className="btn btn-warning"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.EASTERN_ASIA]);
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                    handleRegionChange(CONTINENT_CODE[continentName.EASTERN_ASIA])
+                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Eastern Asia
+          </button>
+          <button type="button" className="btn btn-warning"
+                  onClick={() => {
+                    handleRegionChange('035')
+                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
+                  }}> SE Asia
           </button>
           <button type="button" className="btn btn-success"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.EUROPE]);
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                    handleRegionChange(CONTINENT_CODE[continentName.EUROPE])
+                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Europe
           </button>
           <button type="button" className="btn btn-warning"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.WESTERN_EUROPE]);
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                    handleRegionChange(CONTINENT_CODE[continentName.WESTERN_EUROPE])
+                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Western Europe
           </button>
           <button type="button" className="btn btn-success"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.AFRICA]);
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                    handleRegionChange(CONTINENT_CODE[continentName.AFRICA])
+                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Africa
           </button>
           <button type="button" className="btn btn-warning"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.NORTHERN_AMERICA]);
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                    handleRegionChange(CONTINENT_CODE[continentName.NORTHERN_AMERICA])
+                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Northern America
           </button>
           <button type="button" className="btn btn-warning"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.SOUTHERN_AMERICA]);
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                    handleRegionChange(CONTINENT_CODE[continentName.SOUTHERN_AMERICA])
+                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Southern America
           </button>
           <button type="button" className="btn btn-secondary"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.WORLD]);
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]));
+                    handleRegionChange(CONTINENT_CODE[continentName.WORLD])
+                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>World
           </button>
         </div>
@@ -745,44 +648,44 @@ function App() {
         <div className="btn-group" role="group" aria-label="Basic example">
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange(COUNTRY_CODE[countryName.US]);
+                    handleRegionChange(COUNTRY_CODE[countryName.US])
                     handleResolutionChange((RESOLUTION_MODE[resolutionMode.PROVINCES]))
                   }}>US
           </button>
           {/* TODO metro button */}
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('US-CA');
+                    handleRegionChange('US-CA')
                     handleResolutionChange('metros')
                   }}>US-Metro
           </button>
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('JP');
+                    handleRegionChange('JP')
                     handleResolutionChange('provinces')
                   }}>Japan
           </button>
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('IN');
+                    handleRegionChange('IN')
                     handleResolutionChange('provinces')
                   }}>India
           </button>
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('IT');
+                    handleRegionChange('IT')
                     handleResolutionChange('provinces')
                   }}>Italy
           </button>
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('CN');
+                    handleRegionChange('CN')
                     handleResolutionChange('provinces')
                   }}>China
           </button>
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('TW');
+                    handleRegionChange('TW')
                     handleResolutionChange('countries')
                   }}>Taiwan
           </button>
@@ -790,21 +693,21 @@ function App() {
       </div>
       <h3 id="stack">Stacked bar chart</h3>
       {/* REF: https://stackoverflow.com/questions/31022421/google-visualization-stacked-bar-chart-colors-and-labels-for-each-value */}
-      <div style={{border: '1px solid #b9b9b9', padding: '5px'}}>
+      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
         <Chart
           width={'100%'}
           height={'500px'}
           chartType="BarChart"
           loader={<div style={{
-            width: '100%',
-            height: '500px',
+            alignItems: 'center',
             background: '#cccccc',
             display: 'flex',
+            height: '500px',
             justifyContent: 'center',
-            alignItems: 'center',
+            width: '100%',
           }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
           data={[
-            ['Country', 'Digital Display', 'Facebook', 'Instagram', 'YouTube', {role: 'annotation'}],
+            ['Country', 'Digital Display', 'Facebook', 'Instagram', 'YouTube', { role: 'annotation' }],
             ['Sri Lanka', 280000, 190000, 290000, 300000, 'hello'],
             ['India', 160000, 220000, 230000, 300000, 'world'],
             ['Vietnam', 70000, 200000, 150000, 200000, 'this'],
@@ -815,60 +718,60 @@ function App() {
             title: 'Impressions',
             // REF: https://stackoverflow.com/questions/37176219/how-to-change-google-chart-title-font-size
             titleTextStyle: {
+              bold: true,
               color: '#2c313a',
               fontName: 'Open Sans',
               fontSize: 36, // 12, 18 whatever you want (don't specify px)
-              bold: true,
               italic: false,
             },
             legend: {
               position: 'bottom',
               maxLines: 3,
-              textStyle: {color: '#9b9b9b', fontSize: 12},
-              fontName: 'Open Sans'
+              textStyle: { color: '#9b9b9b', fontSize: 12 },
+              fontName: 'Open Sans',
             },
-            bar: {groupWidth: '75%'},
+            bar: { groupWidth: '75%' },
             isStacked: true,
             focusTarget: 'category',
             series: {
-              0: {color: '#92bef9'},
-              1: {color: '#5e98e6'},
-              2: {color: '#3b70b7'},
-              3: {color: '#344776'},
+              0: { color: '#92bef9' },
+              1: { color: '#5e98e6' },
+              2: { color: '#3b70b7' },
+              3: { color: '#344776' },
             },
             hAxis: {
               baselineColor: '#d8d8d8',
               format: 'short',
               title: '',
-              textStyle: {color: '#2c313a', fontSize: 16, fontName: 'Open Sans'},
+              textStyle: { color: '#2c313a', fontSize: 16, fontName: 'Open Sans' },
             },
             vAxis: {
               format: 'short',
               title: '',
-              textStyle: {color: '#2c313a', fontSize: 16, fontName: 'Open Sans'},
+              textStyle: { color: '#2c313a', fontSize: 16, fontName: 'Open Sans' },
             },
             animation: {
               duration: '0.5s',
               easing: 'inAndOut',
               // startup: true,
-            }
+            },
           }}
-          rootProps={{'data-testid': '1'}}
+          rootProps={{ 'data-testid': '1' }}
         />
       </div>
       <h3 id="taiwan">Data of city in Taiwan</h3>
-      <div style={{border: '1px solid #b9b9b9', padding: '5px'}}>
+      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
         <Chart
           width={'100%'}
           height={'500px'}
           chartType="GeoChart"
           loader={<div style={{
-            width: '100%',
-            height: '500px',
+            alignItems: 'center',
             background: '#cccccc',
             display: 'flex',
+            height: '500px',
             justifyContent: 'center',
-            alignItems: 'center'
+            width: '100%',
           }}><i
             className="fas fa-5x fa-circle-notch fa-spin"/></div>}
           data={[
@@ -879,26 +782,29 @@ function App() {
             ['Kaoshung', 959574],
           ]}
           options={{
-            region: 'TW',
+            colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
             displayMode: 'markers',
-            colorAxis: {colors: ['#D1E8FF', '#248EFA']},
+            region: 'TW',
           }}
           // Note: you will need to get a mapsApiKey for your project.
           // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
           mapsApiKey="AIzaSyCn1FMQWe2D2Mriyr1NlFFXMpbeQDx-m-0"
-          rootProps={{'data-testid': '2'}}
+          rootProps={{ 'data-testid': '2' }}
         />
       </div>
       <h3 id="uk">Data of city in UK</h3>
-      <div style={{border: '1px solid #b9b9b9', padding: '5px'}}>
+      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
         <Chart
           width={'100%'}
           height={'500px'}
           chartType="GeoChart"
           loader={<div style={{
-            width: '100%', height: '500px', background: '#cccccc', display: 'flex',
-            justifyContent: 'center',
             alignItems: 'center',
+            background: '#cccccc',
+            display: 'flex',
+            height: '500px',
+            justifyContent: 'center',
+            width: '100%',
           }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
           data={[
             ['City', 'Clicks'],
@@ -908,29 +814,29 @@ function App() {
             ['Manchester', 2354110],
           ]}
           options={{
-            region: 'GB',
+            colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
             displayMode: 'markers',
-            colorAxis: {colors: ['#D1E8FF', '#248EFA']},
+            region: 'GB',
           }}
           // Note: you will need to get a mapsApiKey for your project.
           // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
           mapsApiKey="AIzaSyCn1FMQWe2D2Mriyr1NlFFXMpbeQDx-m-0"
-          rootProps={{'data-testid': '2'}}
+          rootProps={{ 'data-testid': '2' }}
         />
       </div>
       <h3 id="japan">Data of city in Japan</h3>
-      <div style={{border: '1px solid #b9b9b9', padding: '5px'}}>
+      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
         <Chart
           width={'100%'}
           height={'500px'}
           chartType="GeoChart"
           loader={<div style={{
-            width: '100%',
-            height: '500px',
+            alignItems: 'center',
             background: '#cccccc',
             display: 'flex',
+            height: '500px',
             justifyContent: 'center',
-            alignItems: 'center',
+            width: '100%',
           }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
           data={[
             ['City', 'Clicks'],
@@ -943,29 +849,29 @@ function App() {
             ['Fukuoka', 2385909],
           ]}
           options={{
-            region: 'JP',
+            colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
             displayMode: 'markers',
-            colorAxis: {colors: ['#D1E8FF', '#248EFA']},
+            region: 'JP',
           }}
           // Note: you will need to get a mapsApiKey for your project.
           // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
           mapsApiKey="AIzaSyCn1FMQWe2D2Mriyr1NlFFXMpbeQDx-m-0"
-          rootProps={{'data-testid': '2'}}
+          rootProps={{ 'data-testid': '2' }}
         />
       </div>
       <h3 id="uae">Data of city in United Arab Emirates</h3>
-      <div style={{border: '1px solid #b9b9b9', padding: '5px'}}>
+      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
         <Chart
           width={'100%'}
           height={'500px'}
           chartType="GeoChart"
           loader={<div style={{
-            width: '100%',
-            height: '500px',
+            alignItems: 'center',
             background: '#cccccc',
             display: 'flex',
+            height: '500px',
             justifyContent: 'center',
-            alignItems: 'center',
+            width: '100%',
           }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
           data={[
             ['City', 'Clicks'],
@@ -981,29 +887,29 @@ function App() {
             ['Dibba Al-Fujairah', 30000],
           ]}
           options={{
-            region: 'AE',
+            colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
             displayMode: 'markers',
-            colorAxis: {colors: ['#D1E8FF', '#248EFA']},
+            region: 'AE',
           }}
           // Note: you will need to get a mapsApiKey for your project.
           // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
           mapsApiKey="AIzaSyCn1FMQWe2D2Mriyr1NlFFXMpbeQDx-m-0"
-          rootProps={{'data-testid': '2'}}
+          rootProps={{ 'data-testid': '2' }}
         />
       </div>
       <h3 id="lebanon">Data of city in Lebanon</h3>
-      <div style={{border: '1px solid #b9b9b9', padding: '5px'}}>
+      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
         <Chart
           width={'100%'}
           height={'500px'}
           chartType="GeoChart"
           loader={<div style={{
-            width: '100%',
-            height: '500px',
+            alignItems: 'center',
             background: '#cccccc',
             display: 'flex',
+            height: '500px',
             justifyContent: 'center',
-            alignItems: 'center',
+            width: '100%',
           }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
           data={[
             ['City', 'Population'],
@@ -1021,12 +927,12 @@ function App() {
           options={{
             region: 'LB',
             displayMode: 'markers',
-            colorAxis: {colors: ['#D1E8FF', '#248EFA']},
+            colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
           }}
           // Note: you will need to get a mapsApiKey for your project.
           // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
           mapsApiKey="AIzaSyCn1FMQWe2D2Mriyr1NlFFXMpbeQDx-m-0"
-          rootProps={{'data-testid': '2'}}
+          rootProps={{ 'data-testid': '2' }}
         />
       </div>
       <h3 id="combo">Combo chart with line and bar</h3>
@@ -1064,33 +970,41 @@ function App() {
             ['Oct 28', 336, 291, 369.6, 600, 0.015],
           ]}
           options={{
-            bar: {groupWidth: '50%'},
-            chartArea: {width: '85%', height: '75%'},
+            bar: { groupWidth: '50%' },
+            chartArea: { width: '85%', height: '75%' },
             focusTarget: 'category',
-            hAxis: {title: ''},
-            vAxis: {baselineColor: '#d8d8d8', fontSize: 16},
+            hAxis: { title: '' },
+            vAxis: { baselineColor: '#d8d8d8', fontSize: 16 },
             isStacked: true,
-            legend: {position: 'bottom', textStyle: {color: '#9b9b9b'}},
+            legend: { position: 'bottom', textStyle: { color: '#9b9b9b' } },
             title: '',
-            pointSize: 10,
+            pointSize: 4,
             seriesType: 'bars',
             series: {
-              0: {targetAxisIndex: 0, color: '#92bef9'},
-              1: {targetAxisIndex: 0, color: '#5e98e6'},
-              2: {targetAxisIndex: 0, color: '#3b70b7'},
-              3: {targetAxisIndex: 0, color: '#344776'},
-              4: {targetAxisIndex: 1, color: '#f7cc6d', type: 'line', curveType: 'function'},
+              0: { targetAxisIndex: 0, color: '#92bef9' },
+              1: { targetAxisIndex: 0, color: '#5e98e6' },
+              2: { targetAxisIndex: 0, color: '#3b70b7' },
+              3: { targetAxisIndex: 0, color: '#344776' },
+              4: { targetAxisIndex: 1, color: '#f7cc6d', type: 'line', curveType: 'function' },
             },
             vAxes: {
-              0: {title: '', format: 'short'},
-              1: {title: '', format: 'percent'},
+              0: { title: '', format: 'short' },
+              1: { title: '', format: 'percent' },
             },
           }}
-          rootProps={{'data-testid': '1'}}
+          rootProps={{ 'data-testid': '1' }}
         />
       </div>
       <h3 id="pie">Demo for Pie Chart</h3>
-      <div style={{border: '1px solid #b9b9b9', padding: '5px'}}>
+      <div className="btn-group" role="group" aria-label="Basic example">
+        <button type="button" className="btn btn-secondary"
+                onClick={() => handle3dModeChange(false)}>2D
+        </button>
+        <button type="button" className="btn btn-secondary"
+                onClick={() => handle3dModeChange(true)}>3D
+        </button>
+      </div>
+      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
         <Chart
           width={'100%'}
           height={'500px'}
@@ -1104,31 +1018,31 @@ function App() {
             width: '100%',
           }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
           data={[
-            ['Platform', 'Total Clicks', {role: 'annotation'}],
+            ['Platform', 'Total Clicks', { role: 'annotation' }],
             ['PFX', 54500, 'hello'],
             ['Facebook', 45500, 'moto'],
           ]}
           options={{
             // title: 'CTR To Website',
-            backgroundColor: '#dddddd',
+            // backgroundColor: '#dddddd',
             chartArea: {
               height: '90%',
               width: '90%',
             },
             legend: 'none',
-            pieSliceText: 'label',
+            pieSliceText: 'none',
             slices: {
-              0: {color: '#51a4f8'},
-              1: {color: '#f7cc6d'},
+              0: { color: '#51a4f8' },
+              1: { color: '#f7cc6d' },
             },
-            // tooltip: { trigger: 'none' },
-
+            tooltip: { trigger: 'none' },
+            is3D: is3dMode,
           }}
-          rootProps={{'data-testid': '1'}}
+          rootProps={{ 'data-testid': '1' }}
         />
       </div>
     </div>
   )
 }
 
-export default App;
+export default App

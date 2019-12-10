@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86fefc22-b122-42ec-805c-399d7f006890" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,15 +40,22 @@
     <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Font" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunManager" selected="npm.npm start">
     <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
+    <configuration name="App.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/App.js" working-dir="$PROJECT_DIR$/src">
       <method v="2" />
     </configuration>
     <configuration name="npm start" type="js.build_tools.npm">
@@ -58,6 +68,11 @@
       <envs />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.App.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -90,6 +105,8 @@
       <workItem from="1575595884099" duration="26297000" />
       <workItem from="1575700043063" duration="9341000" />
       <workItem from="1575771855637" duration="1792000" />
+      <workItem from="1575854601424" duration="10165000" />
+      <workItem from="1575875996315" duration="3399000" />
     </task>
     <servers />
   </component>
@@ -113,33 +130,37 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="240" y="76" key="#ESLint" timestamp="1575856204304">
+      <screen x="0" y="23" width="1280" height="777" />
+    </state>
+    <state x="240" y="76" key="#ESLint/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575856204304" />
     <state x="328" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575249820758">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="328" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575249820758" />
-    <state width="1214" height="90" key="GridCell.Tab.0.bottom" timestamp="1575774605928">
-      <screen x="45" y="23" width="1235" height="777" />
+    <state width="1259" height="133" key="GridCell.Tab.0.bottom" timestamp="1575947159352">
+      <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="189" key="GridCell.Tab.0.bottom/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575596054183" />
-    <state width="1259" height="164" key="GridCell.Tab.0.bottom/0.23.1280.777@0.23.1280.777" timestamp="1575612233670" />
+    <state width="1259" height="133" key="GridCell.Tab.0.bottom/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575947159352" />
+    <state width="1259" height="133" key="GridCell.Tab.0.bottom/0.23.1280.777@0.23.1280.777" timestamp="1575878463472" />
     <state width="1214" height="90" key="GridCell.Tab.0.bottom/45.23.1235.777@45.23.1235.777" timestamp="1575774605928" />
-    <state width="1214" height="90" key="GridCell.Tab.0.center" timestamp="1575774605927">
-      <screen x="45" y="23" width="1235" height="777" />
+    <state width="1259" height="133" key="GridCell.Tab.0.center" timestamp="1575947159351">
+      <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="189" key="GridCell.Tab.0.center/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575596054167" />
-    <state width="1259" height="164" key="GridCell.Tab.0.center/0.23.1280.777@0.23.1280.777" timestamp="1575612233666" />
+    <state width="1259" height="133" key="GridCell.Tab.0.center/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575947159351" />
+    <state width="1259" height="133" key="GridCell.Tab.0.center/0.23.1280.777@0.23.1280.777" timestamp="1575878463471" />
     <state width="1214" height="90" key="GridCell.Tab.0.center/45.23.1235.777@45.23.1235.777" timestamp="1575774605927" />
-    <state width="1214" height="90" key="GridCell.Tab.0.left" timestamp="1575774605926">
-      <screen x="45" y="23" width="1235" height="777" />
+    <state width="1259" height="133" key="GridCell.Tab.0.left" timestamp="1575947159350">
+      <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="189" key="GridCell.Tab.0.left/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575596054165" />
-    <state width="1259" height="164" key="GridCell.Tab.0.left/0.23.1280.777@0.23.1280.777" timestamp="1575612233663" />
+    <state width="1259" height="133" key="GridCell.Tab.0.left/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575947159350" />
+    <state width="1259" height="133" key="GridCell.Tab.0.left/0.23.1280.777@0.23.1280.777" timestamp="1575878463471" />
     <state width="1214" height="90" key="GridCell.Tab.0.left/45.23.1235.777@45.23.1235.777" timestamp="1575774605926" />
-    <state width="1214" height="90" key="GridCell.Tab.0.right" timestamp="1575774605927">
-      <screen x="45" y="23" width="1235" height="777" />
+    <state width="1259" height="133" key="GridCell.Tab.0.right" timestamp="1575947159351">
+      <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="189" key="GridCell.Tab.0.right/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575596054171" />
-    <state width="1259" height="164" key="GridCell.Tab.0.right/0.23.1280.777@0.23.1280.777" timestamp="1575612233668" />
+    <state width="1259" height="133" key="GridCell.Tab.0.right/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575947159351" />
+    <state width="1259" height="133" key="GridCell.Tab.0.right/0.23.1280.777@0.23.1280.777" timestamp="1575878463472" />
     <state width="1214" height="90" key="GridCell.Tab.0.right/45.23.1235.777@45.23.1235.777" timestamp="1575774605927" />
     <state x="399" y="106" key="RollbackChangesDialog" timestamp="1575439940539">
       <screen x="0" y="23" width="1280" height="777" />
@@ -149,10 +170,11 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="149" y="60" key="SettingsEditor/0.23.1280.777@0.23.1280.777" timestamp="1575612434774" />
-    <state x="306" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1575700105386">
+    <state x="306" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1575854611095">
       <screen x="45" y="23" width="1235" height="777" />
     </state>
     <state x="271" y="246" key="com.intellij.ide.util.TipDialog/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575595941446" />
+    <state x="306" y="246" key="com.intellij.ide.util.TipDialog/45.23.1235.777/1280.23.1920.1057@45.23.1235.777" timestamp="1575854611095" />
     <state x="306" y="246" key="com.intellij.ide.util.TipDialog/45.23.1235.777@45.23.1235.777" timestamp="1575700105386" />
     <state x="448" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1575249919548">
       <screen x="0" y="23" width="1280" height="777" />
