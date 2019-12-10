@@ -357,6 +357,89 @@ function App() {
     ['西藏自治区', 450],
     ['内蒙古自治区', 400],
   ]
+  const countryData2 = [
+    ['State', 'Clicks'],
+    ['United Kingdom', 100],
+    ['France', 400],
+    ['Germany', 300],
+    ['Norway', 250],
+    ['Poland', 400],
+    ['Italy', 200],
+    ['Spain', 150],
+    ['Czech Republic', 120],
+    // with country code and country name both shown
+    // REF: https://stackoverflow.com/questions/40747090/color-provinces-in-my-country-with-google-charts-geocharts
+    [{ v: 'RU', f: 'Russia' }, 1200],
+    ['China', 3000],
+    ['Japan', 4000],
+    ['South Korea', 2150],
+    ['TR', 2150],
+    ['India', 2500],
+    ['Thailand', 2300],
+    ['Indonesia', 2200],
+    ['SA', 1250],
+    ['Algeria', 1360],
+    ['Cameroon', 1300],
+    ['Egypt', 1260],
+    ['Ethiopia', 2190],
+    ['Gambia', 1130],
+    ['Malawi', 2140],
+    ['Morocco', 2320],
+    ['Nigeria', 2800],
+    ['South Africa', 2300],
+    ['United States', 2200],
+    ['Canada', 200],
+    ['Brazil', 2350],
+    ['Cuba', 2400],
+    ['Argentina', 1300],
+    ['Taiwan', 2100],
+    // show states of US
+    ['Illinois', 1200],
+    ['Indiana', 1300],
+    ['US-IA', 2000],
+    ['US-RI', 1500],
+    ['California', 1250],
+    ['Texas', 1001],
+    ['US-WA', 2500],
+    ['Florida', 2350],
+    // use prefecture name in Japanese
+    ['東京', 1300],
+    // also can be shown in English
+    ['Osaka', 1250],
+    ['Fukuoka', 2150],
+    ['Okinawa', 1150],
+    ['長野', 1180],
+    ['北海道', 1180],
+    ['Kyoto', 1100],
+    // show the provinces of India perfectly
+    ['Assam', 1180],
+    ['Tamil Nadu', 1180],
+    ['Tripura', 1250],
+    ['Nagaland', 1160],
+    ['Jammu and Kashmir', 1200],
+    ['Delhi', 1280],
+    ['Damen and Diu', 2180],
+    ['Madhya Pradesh', 1280],
+    ['Riverside', 1280],
+    // I don't know what the code is? 🤔
+    // REF: https://stackoverflow.com/questions/27051096/us-metro-regions-on-google-chart-geo-map
+    // REF: http://jsfiddle.net/5he4p5k9/1/
+    ['803', 200],
+    ['807', 300],
+    ['862', 400],
+    ['Bay Area', 200],
+    // show provinces of China in English
+    ['Guangdong Sheng', 2250],
+    ['Beijing Shi', 1500],
+    ['Hebei Sheng', 1300],
+    ['Jilin Sheng', 1400],
+    ['Sichuan Sheng', 1500],
+    ['Shanghai Shi', 1350],
+    // use prefecture name in Mandarin
+    ['新疆维吾尔自治区', 1400],
+    ['西藏自治区', 1450],
+    ['内蒙古自治区', 1400],
+  ]
   const newRowData = []
   for (const value of rowData) newRowData.push([value[0], value[1], value[1] == null ? null : value[1] * 1.2, value[1] == null ? null : value[1] * 0.8])
 
@@ -483,6 +566,8 @@ function App() {
   const [resolution, setResolution] = useState(resolutionMode.COUNTRIES)
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [is3dMode, set3dMode] = useState(false)
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [mapData, setMapData] = useState(countryData)
 
   // EVENT HANDLERS
   // const handleDateRangeChange = (startDate, endDate) => setChartRange([startDate, endDate]);
@@ -490,6 +575,7 @@ function App() {
   const handleRegionChange = (region) => setRegion(region)
   const handleResolutionChange = (resolution) => setResolution(resolution)
   const handle3dModeChange = (is3dMode) => set3dMode(is3dMode)
+  const handleMapDataChange = (mapData) => setMapData(mapData)
 
   return (
     <div className="App">
@@ -503,11 +589,6 @@ function App() {
         <a href="#time" className="btn btn-secondary">Time</a>
         <a href="#heatmap" className="btn btn-secondary">Heatmap</a>
         <a href="#stack" className="btn btn-secondary">Stacked</a>
-        <a href="#taiwan" className="btn btn-secondary">Taiwan</a>
-        <a href="#uk" className="btn btn-secondary">UK</a>
-        <a href="#japan" className="btn btn-secondary">Japan</a>
-        <a href="#uae" className="btn btn-secondary">UAE</a>
-        <a href="#lebanon" className="btn btn-secondary">Lebanon</a>
         <a href="#combo" className="btn btn-secondary">Combo</a>
         <a href="#pie" className="btn btn-secondary">Pie</a>
       </div>
@@ -555,16 +636,13 @@ function App() {
         />
       </div>
       <h3 id="heatmap">Heat map with region switcher</h3>
-      {/*<p>*/}
-      {/*  Here we demonstrate heat map.*/}
-      {/*</p>*/}
       <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
         <Chart
           className="mapChart"
           width={'100%'}
           height={'500px'}
           chartType="GeoChart"
-          data={countryData}
+          data={mapData}
           loader={<div style={{
             alignItems: 'center',
             background: '#cccccc',
@@ -690,6 +768,15 @@ function App() {
                   }}>Taiwan
           </button>
         </div>
+        <p>Choose Data</p>
+        <div className="btn-group" role="group" aria-label="Basic example">
+          <button type="button" className="btn btn-danger"
+                  onClick={() => handleMapDataChange(countryData)}>Data 1
+          </button>
+          <button type="button" className="btn btn-danger"
+                  onClick={() => handleMapDataChange(countryData2)}>Data 2
+          </button>
+        </div>
       </div>
       <h3 id="stack">Stacked bar chart</h3>
       {/* REF: https://stackoverflow.com/questions/31022421/google-visualization-stacked-bar-chart-colors-and-labels-for-each-value */}
@@ -759,183 +846,6 @@ function App() {
           rootProps={{ 'data-testid': '1' }}
         />
       </div>
-      <h3 id="taiwan">Data of city in Taiwan</h3>
-      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
-        <Chart
-          width={'100%'}
-          height={'500px'}
-          chartType="GeoChart"
-          loader={<div style={{
-            alignItems: 'center',
-            background: '#cccccc',
-            display: 'flex',
-            height: '500px',
-            justifyContent: 'center',
-            width: '100%',
-          }}><i
-            className="fas fa-5x fa-circle-notch fa-spin"/></div>}
-          data={[
-            ['City', 'Clicks'],
-            ['Taipei', 2761477],
-            ['New Taipei', 2361477],
-            ['Tainan', 1324110],
-            ['Kaoshung', 959574],
-          ]}
-          options={{
-            colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
-            displayMode: 'markers',
-            region: 'TW',
-          }}
-          // Note: you will need to get a mapsApiKey for your project.
-          // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-          mapsApiKey="AIzaSyCn1FMQWe2D2Mriyr1NlFFXMpbeQDx-m-0"
-          rootProps={{ 'data-testid': '2' }}
-        />
-      </div>
-      <h3 id="uk">Data of city in UK</h3>
-      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
-        <Chart
-          width={'100%'}
-          height={'500px'}
-          chartType="GeoChart"
-          loader={<div style={{
-            alignItems: 'center',
-            background: '#cccccc',
-            display: 'flex',
-            height: '500px',
-            justifyContent: 'center',
-            width: '100%',
-          }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
-          data={[
-            ['City', 'Clicks'],
-            ['London', 2761477],
-            ['Liverpool', 2324110],
-            ['Oxford', 2527110],
-            ['Manchester', 2354110],
-          ]}
-          options={{
-            colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
-            displayMode: 'markers',
-            region: 'GB',
-          }}
-          // Note: you will need to get a mapsApiKey for your project.
-          // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-          mapsApiKey="AIzaSyCn1FMQWe2D2Mriyr1NlFFXMpbeQDx-m-0"
-          rootProps={{ 'data-testid': '2' }}
-        />
-      </div>
-      <h3 id="japan">Data of city in Japan</h3>
-      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
-        <Chart
-          width={'100%'}
-          height={'500px'}
-          chartType="GeoChart"
-          loader={<div style={{
-            alignItems: 'center',
-            background: '#cccccc',
-            display: 'flex',
-            height: '500px',
-            justifyContent: 'center',
-            width: '100%',
-          }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
-          data={[
-            ['City', 'Clicks'],
-            ['Osaka', 2761477],
-            ['Kobe', 2324110],
-            ['Kyoto', 2324110],
-            ['Tokyo', 1208580],
-            ['Sapporo', 58902],
-            ['Nara', 2385909],
-            ['Fukuoka', 2385909],
-          ]}
-          options={{
-            colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
-            displayMode: 'markers',
-            region: 'JP',
-          }}
-          // Note: you will need to get a mapsApiKey for your project.
-          // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-          mapsApiKey="AIzaSyCn1FMQWe2D2Mriyr1NlFFXMpbeQDx-m-0"
-          rootProps={{ 'data-testid': '2' }}
-        />
-      </div>
-      <h3 id="uae">Data of city in United Arab Emirates</h3>
-      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
-        <Chart
-          width={'100%'}
-          height={'500px'}
-          chartType="GeoChart"
-          loader={<div style={{
-            alignItems: 'center',
-            background: '#cccccc',
-            display: 'flex',
-            height: '500px',
-            justifyContent: 'center',
-            width: '100%',
-          }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
-          data={[
-            ['City', 'Clicks'],
-            ['Dubai', 1137347],
-            ['Abu Dhabi', 603492],
-            ['Sharjah', 543733],
-            ['Al Ain', 408733],
-            ['Ajman', 226173],
-            ['Ras al-Khaimah', 115949],
-            ['Al Fujayrah', 64125],
-            ['Umm Al Quwain Fort', 44411],
-            ['Khawr Fakkan', 33575],
-            ['Dibba Al-Fujairah', 30000],
-          ]}
-          options={{
-            colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
-            displayMode: 'markers',
-            region: 'AE',
-          }}
-          // Note: you will need to get a mapsApiKey for your project.
-          // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-          mapsApiKey="AIzaSyCn1FMQWe2D2Mriyr1NlFFXMpbeQDx-m-0"
-          rootProps={{ 'data-testid': '2' }}
-        />
-      </div>
-      <h3 id="lebanon">Data of city in Lebanon</h3>
-      <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
-        <Chart
-          width={'100%'}
-          height={'500px'}
-          chartType="GeoChart"
-          loader={<div style={{
-            alignItems: 'center',
-            background: '#cccccc',
-            display: 'flex',
-            height: '500px',
-            justifyContent: 'center',
-            width: '100%',
-          }}><i className="fas fa-5x fa-circle-notch fa-spin"/></div>}
-          data={[
-            ['City', 'Population'],
-            ['Beirut Governorate', 1916100],
-            ['Tripoli', 229398],
-            ['Sidon', 163554],
-            ['Tyre', 135204],
-            ['Nabatîyé et Tahta', 120000],
-            ['Habboûch', 98433],
-            ['Djounie', 96135],
-            ['Zahle', 78145],
-            ['Baalbek', 30196],
-            ['En Nâqoûra', 24910],
-          ]}
-          options={{
-            region: 'LB',
-            displayMode: 'markers',
-            colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
-          }}
-          // Note: you will need to get a mapsApiKey for your project.
-          // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-          mapsApiKey="AIzaSyCn1FMQWe2D2Mriyr1NlFFXMpbeQDx-m-0"
-          rootProps={{ 'data-testid': '2' }}
-        />
-      </div>
-      <h3 id="combo">Combo chart with line and bar</h3>
       {/* REF: https://stackoverflow.com/questions/29931681/google-combo-charts-with-stacked-bar-and-lines */}
       <div style={{
         alignItems: 'center',
