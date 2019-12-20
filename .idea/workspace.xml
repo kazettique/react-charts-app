@@ -38,6 +38,7 @@
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Font" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -107,7 +108,7 @@
       <workItem from="1576052561143" duration="3305000" />
       <workItem from="1576137990716" duration="603000" />
       <workItem from="1576313197240" duration="573000" />
-      <workItem from="1576822331241" duration="2041000" />
+      <workItem from="1576822331241" duration="8808000" />
     </task>
     <servers />
   </component>

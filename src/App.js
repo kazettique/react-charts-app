@@ -569,6 +569,23 @@ function App() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [mapData, setMapData] = useState(countryData)
 
+  const chartEvents = [
+    {
+      eventName: "error",
+      callback({ chartWrapper }) {
+        setResolution(resolutionMode.COUNTRIES)
+      }
+    },
+    {
+      eventName: 'select',
+      callback({ chartWrapper }) {
+        console.log('select!!')
+      }
+    }
+  ];
+
+  // const chartEvents = () => console.log('hello')
+
   return (
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -654,6 +671,7 @@ function App() {
             resolution: resolution,
             sizeAxis: { minValue: 0, maxValue: 100 },
           }}
+          chartEvents={chartEvents}
         />
 
         <p>Choose continent</p>
