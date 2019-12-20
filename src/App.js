@@ -569,21 +569,12 @@ function App() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [mapData, setMapData] = useState(countryData)
 
-  // EVENT HANDLERS
-  // const handleDateRangeChange = (startDate, endDate) => setChartRange([startDate, endDate]);
-  const handleViewMode = (mode) => setViewMode(mode)
-  const handleRegionChange = (region) => setRegion(region)
-  const handleResolutionChange = (resolution) => setResolution(resolution)
-  const handle3dModeChange = (is3dMode) => set3dMode(is3dMode)
-  const handleMapDataChange = (mapData) => setMapData(mapData)
-
   return (
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <i className="devicon-react-original devIcon navbar-brand"/>
         <a className="navbar-brand" href="http://google.com"><span role="img" aria-label="">🤡</span> Welcome to Google
-          Charts
-          Playground! <span role="img" aria-label="">👻</span></a>
+          Charts Playground! <span role="img" aria-label="">👻</span></a>
       </nav>
       <div className="btn-group-vertical jumpBtn">
         <a href="#time" className="btn btn-secondary">Time</a>
@@ -596,13 +587,13 @@ function App() {
       <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
         <div className="btn-group" role="group" aria-label="Basic example">
           <button type="button" className="btn btn-secondary"
-                  onClick={() => handleViewMode(timeConstant.MONTHLY)}>Month
+                  onClick={() => setViewMode(timeConstant.MONTHLY)}>Month
           </button>
           <button type="button" className="btn btn-secondary"
-                  onClick={() => handleViewMode(timeConstant.WEEKLY)}>Week
+                  onClick={() => setViewMode(timeConstant.WEEKLY)}>Week
           </button>
           <button type="button" className="btn btn-secondary"
-                  onClick={() => handleViewMode(timeConstant.DAILY)}>Day
+                  onClick={() => setViewMode(timeConstant.DAILY)}>Day
           </button>
         </div>
         <Chart
@@ -659,8 +650,8 @@ function App() {
             colorAxis: { colors: ['#D1E8FF', '#248EFA'] },
             datalessRegionColor: '#FCFCFC',
             legend: { position: 'absolute', top: '0', color: 'green' },
-            region,
-            resolution,
+            region: region,
+            resolution: resolution,
             sizeAxis: { minValue: 0, maxValue: 100 },
           }}
         />
@@ -669,56 +660,56 @@ function App() {
         <div className="btn-group" role="group" aria-label="Basic example">
           <button type="button" className="btn btn-success"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.ASIA])
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
+                    setRegion(CONTINENT_CODE[continentName.ASIA])
+                    setResolution((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Asia
           </button>
           <button type="button" className="btn btn-warning"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.EASTERN_ASIA])
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
+                    setRegion(CONTINENT_CODE[continentName.EASTERN_ASIA])
+                    setResolution((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Eastern Asia
           </button>
           <button type="button" className="btn btn-warning"
                   onClick={() => {
-                    handleRegionChange('035')
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
+                    setRegion('035')
+                    setResolution((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}> SE Asia
           </button>
           <button type="button" className="btn btn-success"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.EUROPE])
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
+                    setRegion(CONTINENT_CODE[continentName.EUROPE])
+                    setResolution((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Europe
           </button>
           <button type="button" className="btn btn-warning"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.WESTERN_EUROPE])
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
+                    setRegion(CONTINENT_CODE[continentName.WESTERN_EUROPE])
+                    setResolution((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Western Europe
           </button>
           <button type="button" className="btn btn-success"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.AFRICA])
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
+                    setRegion(CONTINENT_CODE[continentName.AFRICA])
+                    setResolution((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Africa
           </button>
           <button type="button" className="btn btn-warning"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.NORTHERN_AMERICA])
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
+                    setRegion(CONTINENT_CODE[continentName.NORTHERN_AMERICA])
+                    setResolution((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Northern America
           </button>
           <button type="button" className="btn btn-warning"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.SOUTHERN_AMERICA])
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
+                    setRegion(CONTINENT_CODE[continentName.SOUTHERN_AMERICA])
+                    setResolution((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>Southern America
           </button>
           <button type="button" className="btn btn-secondary"
                   onClick={() => {
-                    handleRegionChange(CONTINENT_CODE[continentName.WORLD])
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
+                    setRegion(CONTINENT_CODE[continentName.WORLD])
+                    setResolution((RESOLUTION_MODE[resolutionMode.COUNTRIES]))
                   }}>World
           </button>
         </div>
@@ -726,55 +717,55 @@ function App() {
         <div className="btn-group" role="group" aria-label="Basic example">
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange(COUNTRY_CODE[countryName.US])
-                    handleResolutionChange((RESOLUTION_MODE[resolutionMode.PROVINCES]))
+                    setRegion(COUNTRY_CODE[countryName.US])
+                    setResolution((RESOLUTION_MODE[resolutionMode.PROVINCES]))
                   }}>US
           </button>
           {/* TODO metro button */}
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('US-CA')
-                    handleResolutionChange('metros')
+                    setRegion('US-CA')
+                    setResolution('metros')
                   }}>US-Metro
           </button>
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('JP')
-                    handleResolutionChange('provinces')
+                    setRegion('JP')
+                    setResolution('provinces')
                   }}>Japan
           </button>
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('IN')
-                    handleResolutionChange('provinces')
+                    setRegion('IN')
+                    setResolution('provinces')
                   }}>India
           </button>
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('IT')
-                    handleResolutionChange('provinces')
+                    setRegion('IT')
+                    setResolution('provinces')
                   }}>Italy
           </button>
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('CN')
-                    handleResolutionChange('provinces')
+                    setRegion('CN')
+                    setResolution('provinces')
                   }}>China
           </button>
           <button type="button" className="btn btn-danger"
                   onClick={() => {
-                    handleRegionChange('TW')
-                    handleResolutionChange('countries')
+                    setRegion('TW')
+                    setResolution('provinces')
                   }}>Taiwan
           </button>
         </div>
         <p>Choose Data</p>
         <div className="btn-group" role="group" aria-label="Basic example">
           <button type="button" className="btn btn-danger"
-                  onClick={() => handleMapDataChange(countryData)}>Data 1
+                  onClick={() => setMapData(countryData)}>Data 1
           </button>
           <button type="button" className="btn btn-danger"
-                  onClick={() => handleMapDataChange(countryData2)}>Data 2
+                  onClick={() => setMapData(countryData2)}>Data 2
           </button>
         </div>
       </div>
@@ -907,11 +898,17 @@ function App() {
       </div>
       <h3 id="pie">Demo for Pie Chart</h3>
       <div className="btn-group" role="group" aria-label="Basic example">
+        {/*<button type="button" className="btn btn-secondary"*/}
+        {/*        onClick={() => handle3dModeChange(false)}>2D*/}
+        {/*</button>*/}
+        {/*<button type="button" className="btn btn-secondary"*/}
+        {/*        onClick={() => handle3dModeChange(true)}>3D*/}
+        {/*</button>*/}
         <button type="button" className="btn btn-secondary"
-                onClick={() => handle3dModeChange(false)}>2D
+                onClick={() => set3dMode(false)}>2D
         </button>
         <button type="button" className="btn btn-secondary"
-                onClick={() => handle3dModeChange(true)}>3D
+                onClick={() => set3dMode(true)}>3D
         </button>
       </div>
       <div style={{ border: '1px solid #b9b9b9', padding: '5px' }}>
