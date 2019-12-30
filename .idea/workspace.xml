@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="86fefc22-b122-42ec-805c-399d7f006890" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +108,11 @@
       <workItem from="1576052561143" duration="3305000" />
       <workItem from="1576137990716" duration="603000" />
       <workItem from="1576313197240" duration="573000" />
-      <workItem from="1576822331241" duration="8808000" />
+      <workItem from="1576822331241" duration="9136000" />
+      <workItem from="1577197171856" duration="28000" />
+      <workItem from="1577245220739" duration="234000" />
+      <workItem from="1577265117488" duration="195000" />
+      <workItem from="1577712465949" duration="999000" />
     </task>
     <servers />
   </component>
@@ -140,29 +144,29 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="328" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575249820758" />
-    <state width="1259" height="133" key="GridCell.Tab.0.bottom" timestamp="1576822873856">
+    <state width="1259" height="133" key="GridCell.Tab.0.bottom" timestamp="1576834242746">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state width="1259" height="133" key="GridCell.Tab.0.bottom/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1576036631922" />
-    <state width="1259" height="133" key="GridCell.Tab.0.bottom/0.23.1280.777@0.23.1280.777" timestamp="1576822873856" />
+    <state width="1259" height="133" key="GridCell.Tab.0.bottom/0.23.1280.777@0.23.1280.777" timestamp="1576834242746" />
     <state width="1214" height="90" key="GridCell.Tab.0.bottom/45.23.1235.777@45.23.1235.777" timestamp="1575774605928" />
-    <state width="1259" height="133" key="GridCell.Tab.0.center" timestamp="1576822873855">
+    <state width="1259" height="133" key="GridCell.Tab.0.center" timestamp="1576834242745">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state width="1259" height="133" key="GridCell.Tab.0.center/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1576036631920" />
-    <state width="1259" height="133" key="GridCell.Tab.0.center/0.23.1280.777@0.23.1280.777" timestamp="1576822873855" />
+    <state width="1259" height="133" key="GridCell.Tab.0.center/0.23.1280.777@0.23.1280.777" timestamp="1576834242745" />
     <state width="1214" height="90" key="GridCell.Tab.0.center/45.23.1235.777@45.23.1235.777" timestamp="1575774605927" />
-    <state width="1259" height="133" key="GridCell.Tab.0.left" timestamp="1576822873854">
+    <state width="1259" height="133" key="GridCell.Tab.0.left" timestamp="1576834242745">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state width="1259" height="133" key="GridCell.Tab.0.left/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1576036631919" />
-    <state width="1259" height="133" key="GridCell.Tab.0.left/0.23.1280.777@0.23.1280.777" timestamp="1576822873854" />
+    <state width="1259" height="133" key="GridCell.Tab.0.left/0.23.1280.777@0.23.1280.777" timestamp="1576834242745" />
     <state width="1214" height="90" key="GridCell.Tab.0.left/45.23.1235.777@45.23.1235.777" timestamp="1575774605926" />
-    <state width="1259" height="133" key="GridCell.Tab.0.right" timestamp="1576822873855">
+    <state width="1259" height="133" key="GridCell.Tab.0.right" timestamp="1576834242746">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state width="1259" height="133" key="GridCell.Tab.0.right/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1576036631921" />
-    <state width="1259" height="133" key="GridCell.Tab.0.right/0.23.1280.777@0.23.1280.777" timestamp="1576822873855" />
+    <state width="1259" height="133" key="GridCell.Tab.0.right/0.23.1280.777@0.23.1280.777" timestamp="1576834242746" />
     <state width="1214" height="90" key="GridCell.Tab.0.right/45.23.1235.777@45.23.1235.777" timestamp="1575774605927" />
     <state x="399" y="106" key="RollbackChangesDialog" timestamp="1575439940539">
       <screen x="0" y="23" width="1280" height="777" />
@@ -182,5 +186,9 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="448" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1280.777/1280.23.1920.1057@0.23.1280.777" timestamp="1575249919548" />
+    <state x="370" y="255" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1577713034184">
+      <screen x="0" y="23" width="1280" height="777" />
+    </state>
+    <state x="370" y="255" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.23.1280.777@0.23.1280.777" timestamp="1577713034184" />
   </component>
 </project>
